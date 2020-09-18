@@ -63,5 +63,13 @@ public class Categoria {
 		session.close();
 		return listaDeCategorias;
 	}
+	
+	public Categoria buscarCategoria(int id_cat)
+	{
+		SessionFactory factoriaSession = new Configuration().configure().buildSessionFactory();
+		Session session = factoriaSession.openSession();
+		Categoria categoria = (Categoria)session.get(Categoria.class,id_cat);
+		return categoria;
+	}
 
 }

@@ -24,7 +24,10 @@ public class FiltrarLibrosAccion extends Accion {
 		}
 		else 
 		{
-			listaDeLibros =Libro.buscarPorCategoria(request.getParameter("sel_categoria"));
+			Categoria categoria = new Categoria();
+			int id_cat = Integer.parseInt(request.getParameter("sel_categoria"));
+			categoria = categoria.buscarCategoria(id_cat);
+			listaDeLibros =Libro.buscarPorCategoria(categoria);
 
 		}
 		List<Categoria> listaDeCategorias = null;
