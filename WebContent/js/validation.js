@@ -10,7 +10,6 @@ function validar(id)
     	{            
     		if(id=='nuevo')
     		{
-    			alert("NUEVO");
 
     			document.forms[0].action = "InsertarLibro.jsp?ISBN="+isbn+"&titulo="+titulo+"&categoria="+categoria;
                 document.forms[0].method = "post";
@@ -18,7 +17,6 @@ function validar(id)
     		}
     		else
     		{
-    			alert("ELSE");
 
     			document.forms[0].action = "GuardarLibro.jsp?ISBN="+isbn+"&titulo="+titulo+"&categoria="+categoria;
                 document.forms[0].method = "post";

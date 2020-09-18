@@ -5,11 +5,14 @@
 <head>
 <!--  omitimos JS y cabecera -->
 <title>Ejemplo01</title>
-        <script src ="validation.js" type ="text/javascript"></script>
-        <meta http-equiv ="Content-Type" content="text/html;charset=UTF-8"/></head>
+	<script src ="js/validation.js" type ="text/javascript"></script>
+    <meta http-equiv ="Content-Type" content="text/html;charset=UTF-8"/>
+	<link rel="stylesheet" href="css/styles.css">
+</head>
+        
 <body>
-<form>
-<fieldset>
+<form >
+<fieldset id= "fs">
 	<legend>Formulario alta libro</legend>
 	<p>
 		<label for ="clave">ISBN: </label>
@@ -24,7 +27,7 @@
 		<input type = "text" name = "categoria" id = "categoria"/>
 	</p>
 	<p>
-		<input type = "submit" value = "Insertar" onclick = "validar('nuevo');"/>
+		<input type = "submit" id ="btnInsert" value = "Insertar" onclick = "validar('nuevo');"/>
 	</p>
 </fieldset>
 </form>

@@ -1,0 +1,27 @@
+
+#fs {
+	font-family: sans-serif;
+	color: Blue;
+	overflow: auto;
+	width :300px;
+}
+
+#btnInsert
+{
+	background-color: DodgerBlue;
+	color: white;
+	border: rounded;
+	aligment: center;
+}
+td, th{
+	
+	padding: 12px;
+  	text-align: center;
+  	border: 1px solid black;
+  	margin-collapse: collapse;
+}
+#tb_lib{
+	
+		font-family: sans-serif;
+		border: 1px;
+}

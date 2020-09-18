@@ -47,7 +47,7 @@ public class DataBaseHelper <T> {
 	
 	
 	@SuppressWarnings({ "finally", "unchecked" })
-	public List<T> seleccionarRegistros(String consultaSQL,Class clase) 
+	public List<T> seleccionarRegistros(String consultaSQL, Class clase) 
 	{
 		Connection conexion = null;
 		Statement sentencia = null;

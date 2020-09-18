@@ -9,7 +9,7 @@
 	Libro libro = Libro.buscarPorClave(request.getParameter("isbn"));
 %>
 <title>Editar</title>
-        <script src ="validation.js" type ="text/javascript"></script>
+        <script src ="js/validation.js" type ="text/javascript"></script>
         <meta http-equiv ="Content-Type" content="text/html;charset=UTF-8"/></head>
 <head>Editar Libro</head>
 <body>
