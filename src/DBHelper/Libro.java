@@ -32,42 +32,43 @@ public class Libro {
 	}
 	
 	public Libro(int isbn, String titulo, String categoria) {
-		super();
+		
 		this.isbn = isbn;
 		this.titulo = titulo;
 		this.categoria = categoria;
 	}
 	
+	
 	public Libro() {
 		super();
 	}
-	public static ResultSet buscarTodasLasCategorias() {
-		String consultaSQL = "select distinct (categoria) from Libros";
-		DataBaseHelper helper = new DataBaseHelper();
-		ResultSet rs = helper.seleccionarRegistros(consultaSQL);
-		return rs;
-	}
-	public void insertar () {
+	public void insertar () 
+	{
 		String consultaSQL = "insert into Libros(isbn,titulo,categoria) values";
 		consultaSQL += "("+isbn+", '"+titulo+"', '"+categoria+"')";
-		System.out.println(consultaSQL);
-		DataBaseHelper helper = new DataBaseHelper();
+		DataBaseHelper<Libro> helper = new DataBaseHelper<Libro>();
 		helper.modificarRegistro(consultaSQL);
 	}
-	public static List<Libro> buscarTodos () {
-		
-		String consultaSQL = "select isbn, titulo, categoria from Libros";
-		DataBaseHelper helper = new DataBaseHelper();
-		ResultSet rs = helper.seleccionarRegistros(consultaSQL);
-		List<Libro> listaDeLibros = new ArrayList<Libro>();
-		try {
-			while(rs.next()) {
-				listaDeLibros.add(new Libro(rs.getInt("isbn"),rs.getString("titulo"),rs.getString("categoria")));
-				
-			}
-		}catch(SQLException e) {
-			System.out.println("SQLException"+ e.getMessage());
-		}
+
+	public static List<Libro> buscarTodos() 
+	{
+		String consultaSQL = "select isbn,titulo,categoria from Libros";
+		DataBaseHelper<Libro> helper = new DataBaseHelper<Libro>();
+		List<Libro> listaDeLibros = helper.seleccionarRegistros(consultaSQL,
+		Libro.class);
 		return listaDeLibros;
 	}
+	public static List<String> buscarTodasLasCategorias() 
+	{
+		String consultaSQL = "select distinct(categoria) as categoria from Libros";
+		DataBaseHelper<String> helper = new DataBaseHelper<String>();
+		List<String>listaDeCategorias = helper.seleccionarRegistros(consultaSQL,
+		String.class);
+		return listaDeCategorias;
+	}
+	public void borrar() {
+		String consultaSQL = "delete from Libros where isbn='"+ this.isbn+"'";
+		DataBaseHelper<Libro> helper = new DataBaseHelper<Libro>();
+		helper.modificarRegistro(consultaSQL);
+		}
 }

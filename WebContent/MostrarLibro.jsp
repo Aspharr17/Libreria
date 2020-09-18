@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ page import="DBHelper.*" %>
-    <%@ page import="java.sql.ResultSet" %>
     <%@ page import="java.util.*" %>
  
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
@@ -14,37 +13,42 @@
 <body>
 
 <select name = "categoria">
-<option value = "seleccionar">seleccionar</option>
+<option value = "seleccionar">Seleccionar</option>
 <%
-	//DataBaseHelper db = new DataBaseHelper();
-	//String consultaSQL = "select isbn, titulo, categoria from libros";
-	//3 y 4
-	Libro libro = new Libro();
-	ResultSet rs = null;
-	try{
-	 rs = libro.buscarTodasLasCategorias();
-	//5
-	while(rs.next()){%>
-	
+	List<String> listaDeCategorias=null;
+	listaDeCategorias=Libro.buscarTodasLasCategorias();
+	for(String categoria:listaDeCategorias) { %>
+		<option value="<%=categoria%>"><%=categoria%></option>
 
-	<option value ="<%=rs.getString("categoria")%>">
-	<%=rs.getString("categoria") %></option>
-	<%}
-	}
-	finally{}%>
+	<% } 
+%>
+
 </select>
 <br/>
-
+<table>
+  <tr>
+    <th>ISBN</th>
+    <th>Título</th>
+    <th>Categoría</th>
+  </tr>
 <%
-	List<Libro> listaDeLibros = libro.buscarTodos();
-	for(Libro lib:listaDeLibros){%>
-	<%=lib.getIsbn()%>
-	<%=lib.getTitulo()%>
-	<%=lib.getCategoria()%>
-	<br/>
-	<%}
+	List<Libro> listaDeLibros=null;
+	listaDeLibros=Libro.buscarTodos();
+	for(Libro libro:listaDeLibros){ %>
+	<tr>
 	
+		<td><%=libro.getIsbn()%></td>
+		<td><%=libro.getTitulo()%></td>
+		<td><%=libro.getCategoria()%></td>
+		<td><a href="BorrarLibro.jsp?isbn=<%=libro.getIsbn()%>">Borrar</a></td>
+		<td><a href="FormularioEditarLibro.jsp?isbn=<%=libro.getIsbn()%>">Editar</a></td>
+	</tr>	
+		<% }
 %>
+
+</table>
+<br/>
+
 
 <a href="FormularioInsertarLibro.jsp">Insertar Libro</a>
 </body>
