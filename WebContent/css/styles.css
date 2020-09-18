@@ -1,27 +1,49 @@
 
-#fs {
+fieldset {
 	font-family: sans-serif;
-	color: Blue;
 	overflow: auto;
-	width :300px;
+	width :200px;
+	border: 1px solid #ddd;
 }
 
 #btnInsert
 {
-	background-color: DodgerBlue;
-	color: white;
+	background-color: white;
+	color: Blue;
 	border: rounded;
+	border-color: DodgerBlue;
+	aligment: center;
+	width: 100%;
+}
+#btnfiltrar
+{
+	background-color: white;
+	color: Blue;
+	border: rounded;
+	border-color: DodgerBlue;
 	aligment: center;
 }
 td, th{
 	
 	padding: 12px;
-  	text-align: center;
-  	border: 1px solid black;
+  	text-align: left;
   	margin-collapse: collapse;
+  	border-bottom: 1px solid #ddd;
 }
-#tb_lib{
+#tb_lib
+{
 	
-		font-family: sans-serif;
-		border: 1px;
+	font-family: sans-serif;	
+}
+
+
+#legend_fs
+{
+	text-align: center;
+}
+#isbn,#titulo,#categoria
+{
+	width: 100%;
+  	border-color: DodgerBlue;
+  	
 }

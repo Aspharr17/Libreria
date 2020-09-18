@@ -2,71 +2,73 @@
     pageEncoding="UTF-8"%>
     <%@ page import="DBHelper.*" %>
     <%@ page import="java.util.*" %>
- 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>	 
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//ES"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<link rel="stylesheet" href="css/styles.css">
+	<link rel="stylesheet" type="text/css" href="css/styles.css"/>
 
 <title>Lista de libros</title>
 </head>
 <body>
-<form action="MostrarLibro.jsp" method="post">
+<form action="MostrarLibro.jsp">
 
-<select name = "categoria" id ="categoria">
+<select name = "sel_categoria" id ="sel_categoria">
 <option value = "seleccionar" >Seleccionar</option>
+
 <%
 	List<String> listaDeCategorias=null;
 	listaDeCategorias=Libro.buscarTodasLasCategorias();
-	String cat;
-	for(String categoria:listaDeCategorias) { 
-		%>
-		<option value="<%=categoria%>"><%=categoria%></option>
-				
-	<% }%>
-	
-	
-
+	pageContext.setAttribute("listaDeCategorias",listaDeCategorias);
+%>
+	<c:forEach var="categoria" items ="${listaDeCategorias}">
+		<option value = "${categoria}">${categoria}</option>
+	</c:forEach>
 </select>
-<input type = "submit" value = "Filtrar" ></input>
 
-<br/>
+<input type = "submit" value = "Filtrar" name ="filtrar"/>
+
 <%
 	List<Libro> listaDeLibros=null;
-	if (request.getParameter("categoria")==null || request.getParameter("categoria").equals("seleccionar")) 
+	
+	if (request.getParameter("sel_categoria")==null || request.getParameter("sel_categoria").equals("seleccionar")) 
 	{
 		listaDeLibros=Libro.buscarTodos();
+	
 	}
 	else 
 	{
-		listaDeLibros=Libro.
-		buscarPorCategoria(request.getParameter("categoria"));
+		listaDeLibros=Libro.buscarPorCategoria(request.getParameter("sel_categoria"));
+
 	}
-	%>
+	pageContext.setAttribute("listaDeLibros",listaDeLibros);	
+
+%>
+<br/>
 <table id ="tb_lib">
 	<tr>
-	<th>ISBN</th>
-	<th>Título</th>
-	<th>Categoría</th>
+		<th>ISBN</th>
+		<th>Título</th>
+		<th>Categoría</th>
+		<th>Opciones</th>
 	</tr>
-	<%
-	for(Libro libro:listaDeLibros){ %>
-	<tr>
-		<td><%=libro.getIsbn()%></td>
-		<td><%=libro.getTitulo()%></td>
-		<td><%=libro.getCategoria()%></td>
-		
-		<td><a href="BorrarLibro.jsp?isbn=<%=libro.getIsbn()%>">Borrar</a></td>
-		<td><a href="FormularioEditarLibro.jsp?isbn=<%=libro.getIsbn()%>">Editar</a></td>
-
 	
-	<% }
-%>
+	<c:forEach var="libro" items ="${listaDeLibros}">
+	<tr>
+		<td><c:out value="${libro.getIsbn()}"></c:out></td>
+		<td><c:out value="${libro.getTitulo()}"></c:out></td>
+		<td><c:out value="${libro.getCategoria()}"></c:out></td>
+		<td><a href="BorrarLibro.jsp?isbn='${libro.getIsbn()}'">Borrar</a>
+		<a href="FormularioEditarLibro.jsp?isbn='${libro.getIsbn()}'">Editar</a></td>	
+	</tr>
+	</c:forEach>	
+	
 </table>
-<br/>
-<a href="FormularioInsertarLibro.jsp">Insertar Libro</a>
+
 </form>
+<br />
+<a href="FormularioInsertarLibro.jsp">Insertar Libro</a>
 </body>
 </html>

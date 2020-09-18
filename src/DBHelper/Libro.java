@@ -1,8 +1,5 @@
 package DBHelper;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Libro {
@@ -38,10 +35,10 @@ public class Libro {
 		this.categoria = categoria;
 	}
 	
-	
 	public Libro() {
 		super();
 	}
+	
 	public void insertar () 
 	{
 		String consultaSQL = "insert into Libros(isbn,titulo,categoria) values";

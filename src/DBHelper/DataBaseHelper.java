@@ -8,7 +8,6 @@ import java.util.List;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class DataBaseHelper <T> {
 	private static final String DRIVER = "com.mysql.jdbc.Driver";
@@ -46,7 +45,7 @@ public class DataBaseHelper <T> {
 	}
 	
 	
-	@SuppressWarnings({ "finally", "unchecked" })
+	@SuppressWarnings({ "finally", "unchecked", "rawtypes" })
 	public List<T> seleccionarRegistros(String consultaSQL, Class clase) 
 	{
 		Connection conexion = null;

@@ -2,30 +2,44 @@
     pageEncoding="UTF-8"%>
 <%@ page import ="java.util.List"%>
 <%@ page import="DBHelper.*"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-"http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>	 
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
 <% 
 	Libro libro = Libro.buscarPorClave(request.getParameter("isbn"));
+	pageContext.setAttribute("libro",libro);	
+
 %>
-<title>Editar</title>
-        <script src ="js/validation.js" type ="text/javascript"></script>
-        <meta http-equiv ="Content-Type" content="text/html;charset=UTF-8"/></head>
+<head>
+	<title>Editar</title>
+	<script src ="js/validation.js" type ="text/javascript"></script>
+    <meta http-equiv ="Content-Type" content="text/html;charset=UTF-8"/>
+	<link rel="stylesheet" type="text/css" href="css/styles.css"/>
+</head>
 <body>
 	<form id = "formularioEdicion" action ="GuardarLibro.jsp">
 		<fieldset>
 		<p>
 			<label for ="clave">ISBN: </label>
-			<input type = "text" name ="isbn" id = "isbn" value = <%=libro.getIsbn() %> />
+			<input type = "text" name ="isbn" id = "isbn" value = "${libro.getIsbn()}" />
 		</p>
 		<p>	
 			<label for = "titulo">Titulo: </label>
-			<input type = "text" name = "titulo" id ="titulo"value =<%=libro.getTitulo()%>/>
+			<input type = "text" name = "titulo" id ="titulo"value ="${libro.getTitulo()}" />
 		</p>
-		<p>
-			<label for =  "categoria"> Categoria: </label>
-			<input type = "text" name = "categoria" id = "categoria" value = <%=libro.getCategoria()%>/>
-		</p>
+		<%
+		List<String> listaDeCategorias=null;
+		listaDeCategorias=Libro.buscarTodasLasCategorias();
+		pageContext.setAttribute("listaDeCategorias",listaDeCategorias);
+		%>
+		<select name = "categoria" id ="categoria">
+			<option value = "seleccionar" >Seleccionar</option>
+			<c:forEach var="categoria" items ="${listaDeCategorias}">
+			<option value = "${categoria}">${categoria}</option>
+			</c:forEach>
+		</select>	
 		<p>
 			<input type = "submit" value = "Guardar" onclick = "validar('edit');"/>
 		</p>
