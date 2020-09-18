@@ -11,7 +11,6 @@
 <title>Editar</title>
         <script src ="js/validation.js" type ="text/javascript"></script>
         <meta http-equiv ="Content-Type" content="text/html;charset=UTF-8"/></head>
-<head>Editar Libro</head>
 <body>
 	<form id = "formularioEdicion" action ="GuardarLibro.jsp">
 		<fieldset>

@@ -67,7 +67,7 @@ public class Libro {
 		return listaDeCategorias;
 	}
 	public void borrar() {
-		String consultaSQL = "delete from Libros where isbn='"+ this.isbn+"'";
+		String consultaSQL = "delete from Libros where isbn="+ this.isbn;
 		DataBaseHelper<Libro> helper = new DataBaseHelper<Libro>();
 		helper.modificarRegistro(consultaSQL);
 		}
@@ -76,9 +76,7 @@ public class Libro {
 		String consultaSQL = "select isbn, titulo, categoria FROM libros WHERE isbn="+isbn;
 		DataBaseHelper<Libro> helper = new DataBaseHelper<Libro>();
 		List<Libro> listaDeLibros = helper.seleccionarRegistros(consultaSQL, Libro.class);
-		System.out.println(listaDeLibros.get(0).getIsbn()+"   "+
-							listaDeLibros.get(0).getTitulo()+"  "+
-							listaDeLibros.get(0).getCategoria());
+
 		return listaDeLibros.get(0);
 	}
 	public void guardar() 
@@ -87,5 +85,14 @@ public class Libro {
 							"' WHERE isbn="+isbn;
 		DataBaseHelper<Libro> helper = new DataBaseHelper<Libro>();
 		helper.modificarRegistro(consultaSQL);
+	}
+	
+	public static List<Libro> buscarPorCategoria(String categoria)
+	{
+		String consultaSQL = "SELECT isbn,titulo,categoria FROM libros WHERE categoria='"+categoria+"'";
+		DataBaseHelper<Libro> helper = new DataBaseHelper<Libro>();
+		List<Libro> listaDeLibros = helper.seleccionarRegistros(consultaSQL, Libro.class);
+		return listaDeLibros;
+		
 	}
 }

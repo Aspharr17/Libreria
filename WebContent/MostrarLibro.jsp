@@ -13,45 +13,60 @@
 <title>Lista de libros</title>
 </head>
 <body>
+<form action="MostrarLibro.jsp" method="post">
 
-<select name = "categoria">
-<option value = "seleccionar">Seleccionar</option>
+<select name = "categoria" id ="categoria">
+<option value = "seleccionar" >Seleccionar</option>
 <%
 	List<String> listaDeCategorias=null;
 	listaDeCategorias=Libro.buscarTodasLasCategorias();
-	for(String categoria:listaDeCategorias) { %>
+	String cat;
+	for(String categoria:listaDeCategorias) { 
+		%>
 		<option value="<%=categoria%>"><%=categoria%></option>
-
-	<% } 
-%>
+				
+	<% }%>
+	
+	
 
 </select>
+<input type = "submit" value = "Filtrar" ></input>
+
 <br/>
-<table id ="tb_lib">
-  <tr>
-    <th>ISBN</th>
-    <th>Título</th>
-    <th>Categoría</th>
-  </tr>
 <%
 	List<Libro> listaDeLibros=null;
-	listaDeLibros=Libro.buscarTodos();
+	if (request.getParameter("categoria")==null || request.getParameter("categoria").equals("seleccionar")) 
+	{
+		listaDeLibros=Libro.buscarTodos();
+	}
+	else 
+	{
+		listaDeLibros=Libro.
+		buscarPorCategoria(request.getParameter("categoria"));
+	}
+	%>
+<table id ="tb_lib">
+	<tr>
+	<th>ISBN</th>
+	<th>Título</th>
+	<th>Categoría</th>
+	</tr>
+	<%
 	for(Libro libro:listaDeLibros){ %>
 	<tr>
-	
 		<td><%=libro.getIsbn()%></td>
 		<td><%=libro.getTitulo()%></td>
 		<td><%=libro.getCategoria()%></td>
+		
 		<td><a href="BorrarLibro.jsp?isbn=<%=libro.getIsbn()%>">Borrar</a></td>
 		<td><a href="FormularioEditarLibro.jsp?isbn=<%=libro.getIsbn()%>">Editar</a></td>
-	</tr>	
-		<% }
-%>
 
+	
+	<% }
+%>
 </table>
 <br/>
-
-
 <a href="FormularioInsertarLibro.jsp">Insertar Libro</a>
+</form>
 </body>
 </html>
