@@ -4,7 +4,7 @@
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>
-    <welcome-file>FormularioInsertarLibro.do</welcome-file>
+    <welcome-file>MostrarLibro.do</welcome-file>
     <welcome-file>default.html</welcome-file>
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
@@ -15,7 +15,7 @@
   	<description></description>
   	<display-name>Controlador</display-name>
   	<servlet-name>Controlador</servlet-name>
-  	<servlet-class>controller.Controlador</servlet-class>
+  	<servlet-class>controladores.Controlador</servlet-class>
   </servlet>
   <servlet-mapping>
   	<servlet-name>Controlador</servlet-name>

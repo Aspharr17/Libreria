@@ -5,12 +5,13 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import DBHelper.Categoria;
-import DBHelper.Libro;
-import dao.CategoriaDAO;
-import dao.CategoriaDAOJPAImpl;
-import dao.LibroDAO;
-import dao.LibroDAOJPAImpl;
+import abstractas.Accion;
+import abstractas.DAOAbstractFactory;
+import entidades.Categoria;
+import entidades.Libro;
+import interfaces.CategoriaDAO;
+import interfaces.DAOFactory;
+import interfaces.LibroDAO;
 
 /**
  * Servlet implementation class MostrarLibro
@@ -19,8 +20,10 @@ public class MostrarLibroAccion extends Accion {
 	@Override
 	public String ejecutar(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
-		LibroDAO libroDAO = new LibroDAOJPAImpl();
-		CategoriaDAO categoriaDAO = new CategoriaDAOJPAImpl();
+		DAOFactory factoria = DAOAbstractFactory.getInstance("JPA");
+		
+		LibroDAO libroDAO = factoria.getLibroDAO();
+		CategoriaDAO categoriaDAO = factoria.getCategoriaDAO();
 		List<Categoria> listaDeCategorias = categoriaDAO.buscarTodos();
 
 		List<Libro> listaDeLibros = libroDAO.buscarTodos();

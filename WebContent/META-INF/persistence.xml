@@ -4,9 +4,9 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
 http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd" version="2.0">
 <persistence-unit name="JavaEE_M1">
 	<provider>org.hibernate.ejb.HibernatePersistence</provider>
-	<class>DBHelper.Libro</class>
-	<class>DBHelper.Categoria</class>
-	<class>DBHelper.Autor</class>
+	<class>entidades.Libro</class>
+	<class>entidades.Categoria</class>
+	<class>entidades.Autor</class>
 	<properties>
 	<property name="hibernate.show_sql" value="true"/>
 	<property name="javax.persistence.transactionType"

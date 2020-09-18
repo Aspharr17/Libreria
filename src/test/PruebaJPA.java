@@ -8,7 +8,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
-import DBHelper.Libro;
+import entidades.Libro;
 
 public class PruebaJPA {
 

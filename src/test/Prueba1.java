@@ -12,9 +12,9 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
-import DBHelper.Autor;
-import DBHelper.Categoria;
-import DBHelper.Libro;
+import entidades.Autor;
+import entidades.Categoria;
+import entidades.Libro;
 
 public class Prueba1 
 {

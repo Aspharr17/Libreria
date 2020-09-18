@@ -5,9 +5,12 @@ import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import DBHelper.*;
-import dao.LibroDAO;
-import dao.LibroDAOJPAImpl;
+import abstractas.Accion;
+import abstractas.DAOAbstractFactory;
+import entidades.*;
+import interfaces.DAOFactory;
+import interfaces.LibroDAO;
+import sevlets.excepciones.DBException;
 /**
  * Servlet implementation class LibroInsertar
  */
@@ -19,19 +22,18 @@ public class LibroInsertarAccion extends Accion{
 		//Setea la salida como html
 		response.setContentType("text/html; charset=utf-8");
 		PrintWriter out = null;
+		DAOFactory factoria = DAOAbstractFactory.getInstance("JPA");
+
 		try
 		{
 			 out = response.getWriter();
-
-			//SUSTITUYE AL JSP InstertarLibro
+			 
 			int isbn = Integer.parseInt( request.getParameter("isbn"));
 			String titulo = request.getParameter("titulo");
-			Categoria categoria = new Categoria(Integer.parseInt(request.getParameter("categoria")));
-			Autor autor = new Autor(Integer.parseInt(request.getParameter("autor")));
-
-			Libro libro = new Libro(isbn, titulo, autor, categoria);
-			LibroDAO libroDAO = new LibroDAOJPAImpl();
-			libroDAO.insertar(libro);
+			LibroDAO libroDAO = factoria.getLibroDAO();
+			libroDAO.insertar(new Libro(isbn,titulo,
+											new Autor(Integer.parseInt(request.getParameter("autor"))),
+											new Categoria(Integer.parseInt(request.getParameter("categoria")))));
 			//MUESTRA PAGINA DE OPCIONES PARA SEGUIR INSERTANDO O MOSTRAR LOS LIBROS
 			String page = "<html>"
 						+ "<head>"
