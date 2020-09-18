@@ -1,5 +1,6 @@
 package DBHelper;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class Libro {
@@ -39,7 +40,7 @@ public class Libro {
 		super();
 	}
 	
-	public void insertar () 
+	public void insertar () throws ClassNotFoundException, SQLException
 	{
 		String consultaSQL = "insert into Libros(isbn,titulo,categoria) values";
 		consultaSQL += "("+isbn+", '"+titulo+"', '"+categoria+"')";
@@ -63,7 +64,8 @@ public class Libro {
 		String.class);
 		return listaDeCategorias;
 	}
-	public void borrar() {
+	public void borrar() throws ClassNotFoundException, SQLException 
+	{
 		String consultaSQL = "delete from Libros where isbn="+ this.isbn;
 		DataBaseHelper<Libro> helper = new DataBaseHelper<Libro>();
 		helper.modificarRegistro(consultaSQL);
@@ -76,7 +78,7 @@ public class Libro {
 
 		return listaDeLibros.get(0);
 	}
-	public void guardar() 
+	public void guardar() throws ClassNotFoundException, SQLException
 	{
 		String consultaSQL = "UPDATE libros SET titulo= '"+ titulo+"', categoria= '"+categoria+
 							"' WHERE isbn="+isbn;

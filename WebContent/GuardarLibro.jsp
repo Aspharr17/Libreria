@@ -6,8 +6,14 @@
 	int isbn = Integer.parseInt( request.getParameter("isbn"));
 	String titulo = request.getParameter("titulo");
 	String categoria = request.getParameter("categoria");
-	Libro libro = new Libro(isbn, titulo, categoria);
-	libro.guardar();
-	   
-	response.sendRedirect("MostrarLibro.jsp");
+	try
+	{
+		Libro libro = new Libro(isbn, titulo, categoria);
+		libro.guardar();	
+		response.sendRedirect("MostrarLibro.jsp");
+	}catch(Exception e)
+	{%>
+		<%=e.getMessage()%>	
+	<% }
+	
 %>

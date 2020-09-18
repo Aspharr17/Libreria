@@ -3,12 +3,21 @@
 <%@ page import="DBHelper.*"%>
 
 <% 
-	int isbn = Integer.parseInt( request.getParameter("isbn"));
-	String titulo = request.getParameter("titulo");
-	String categoria = request.getParameter("categoria");
-	Libro libro = new Libro(isbn, titulo, categoria);
-	libro.insertar();
-	
-	response.sendRedirect("MostrarLibro.jsp");
+
+
+	try
+	{	
+		int isbn = Integer.parseInt( request.getParameter("isbn"));
+		String titulo = request.getParameter("titulo");
+		String categoria = request.getParameter("categoria");
+		Libro libro = new Libro(isbn, titulo, categoria);
+		libro.insertar();	
+		response.sendRedirect("MostrarLibro.jsp");
+		
+	}catch(DBException e)
+	{%>
+		<%=e.getMessage()%>
+	<% }
+
     
 %>
