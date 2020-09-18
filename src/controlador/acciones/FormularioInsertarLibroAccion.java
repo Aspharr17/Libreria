@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import DBHelper.Autor;
 import DBHelper.Categoria;
+import dao.AutorDAO;
+import dao.CategoriaDAO;
+import dao.CategoriaDAOJPAImpl;
 
 /**
  * Servlet implementation class FormularioInsertarLibroAccion
@@ -20,10 +23,11 @@ public class FormularioInsertarLibroAccion extends Accion
 	@Override
 	public String ejecutar(HttpServletRequest request, HttpServletResponse response) 
 	{
-		List<Categoria> listaDeCategorias = null;
-		List<Autor> listaDeAutores = null;
-		listaDeCategorias = Categoria.buscarTodos();
-		listaDeAutores = Autor.buscarTodos();
+			
+		CategoriaDAO categoriaDAO = new CategoriaDAOJPAImpl();
+		List<Categoria> listaDeCategorias = categoriaDAO.buscarTodos();
+		AutorDAO autorDAO = new AutorDAOJPAImpl();
+		List<Autor> listaDeAutores =  autorDAO.buscarTodos();
 		
 		request.setAttribute("listaDeCategorias", listaDeCategorias);
 		request.setAttribute("listaDeAutores", listaDeAutores);

@@ -1,24 +1,12 @@
 package DBHelper;
 
-import java.sql.SQLException;
-import java.util.List;
-
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.PersistenceException;
 import javax.persistence.Table;
-import javax.persistence.TypedQuery;
-
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 @Entity
-@Table(name="Libros")
+@Table(name="libros")
 public class Libro {
 	@Id
 	private int cve_lib;
@@ -114,121 +102,5 @@ public class Libro {
 		this.categoria = categoria;
 	}
 
-	public void insertar () throws ClassNotFoundException, SQLException
-	{
-		EntityManagerFactory factoriaSession = JPAHelper.getJPAFactory();
-		EntityManager manager= factoriaSession.createEntityManager();
-		EntityTransaction tx = null;
-		try
-		{
-		tx = manager.getTransaction();
-		tx.begin();
-		manager.persist(this);
-		tx.commit();
-		}
-		catch(PersistenceException e)
-		{
-			manager.getTransaction().rollback();
-			throw e;
-		}
-		finally
-		{
-		manager.close();
-		}
-	}
-
-	public List<Libro> buscarTodos() 
-	{
-		EntityManagerFactory factoriaSession = JPAHelper.getJPAFactory();
-		EntityManager manager = factoriaSession.createEntityManager();
-		TypedQuery<Libro> consulta = manager.createQuery("SELECT l FROM Libro l JOIN FETCH l.categoria",Libro.class);
-		List<Libro> listaDeLibros = null;
-		try
-		{
-			listaDeLibros = consulta.getResultList();
-		}
-		catch(PersistenceException e)
-		{
-			throw e;
-			
-		}
-		finally
-		{
-			manager.close();
-
-		}
-		return listaDeLibros;
-	}
-
-	public void borrar() throws ClassNotFoundException, SQLException 
-	{
-
-		EntityManagerFactory factoriaSession = JPAHelper.getJPAFactory();
-		EntityManager manager= factoriaSession.createEntityManager();
-		EntityTransaction tx = null;
-		try
-		{
-			tx =manager.getTransaction();
-			tx.begin();
-			manager.remove(manager.merge(this)); //Borra en memoria y bd
-			tx.commit();
-		}
-		catch(PersistenceException e)
-		{
-			manager.getTransaction().rollback();
-			throw e;
-		}
-		finally
-		{
-			manager.close();
-		}
-		
-	}
-	public static Libro buscarPorClave(int cve_lib)
-	{
-		EntityManagerFactory factoriaSession = JPAHelper.getJPAFactory();
-		EntityManager manager = factoriaSession.createEntityManager();
-		TypedQuery<Libro> consulta = manager.createQuery(
-				"SELECT l from Libro l JOIN FETCH l.categoria Where l.cve_lib=?1", Libro.class);
-		consulta.setParameter(1, cve_lib);
-		Libro libro = consulta.getSingleResult();
-		manager.close();
-		return libro;
-		
-	}
-	public void guardar() throws ClassNotFoundException, SQLException
-	{
-		EntityManagerFactory factoriaSession = JPAHelper.getJPAFactory();
-		EntityManager manager = factoriaSession.createEntityManager();
-		EntityTransaction tx = null;
-		try
-		{
-		tx = manager.getTransaction();
-		tx.begin();
-		manager.merge(this);
-		tx.commit();
-		}
-		catch(PersistenceException e)
-		{
-			manager.getTransaction().rollback();
-			throw e;
-		}
-		finally
-		{
-		manager.close();
-		}
-	}
 	
-	public static List<Libro> buscarPorCategoria(Categoria categoria)
-	{
-		EntityManagerFactory factoriaSession = JPAHelper.getJPAFactory();
-		EntityManager manager = factoriaSession.createEntityManager();
-		TypedQuery<Libro> consulta = manager.createQuery(
-				"SELECT l FROM Libro l WHERE l.categoria=?1", Libro.class);
-		consulta.setParameter(1, categoria);
-		List<Libro> listaDeLibros = consulta.getResultList();
-		manager.close();
-		return listaDeLibros;
-		
-	}
 }

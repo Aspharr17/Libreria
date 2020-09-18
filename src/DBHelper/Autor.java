@@ -8,9 +8,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 
 @Entity
 @Table(name="Autores")
@@ -64,13 +61,4 @@ public class Autor {
 		this.nom_aut = nom_aut;
 	}
 	
-	@SuppressWarnings("unchecked")
-	public static List<Autor> buscarTodos() 
-	{
-		SessionFactory factoriaSession = new Configuration().configure().buildSessionFactory();
-		Session session = factoriaSession.openSession();
-		List<Autor> listaDeAutores = session.createQuery("from Autor autor").list();
-		session.close();
-		return listaDeAutores;
-	}
 }

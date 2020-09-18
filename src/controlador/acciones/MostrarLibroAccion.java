@@ -7,6 +7,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import DBHelper.Categoria;
 import DBHelper.Libro;
+import dao.CategoriaDAO;
+import dao.CategoriaDAOJPAImpl;
+import dao.LibroDAO;
+import dao.LibroDAOJPAImpl;
 
 /**
  * Servlet implementation class MostrarLibro
@@ -15,13 +19,14 @@ public class MostrarLibroAccion extends Accion {
 	@Override
 	public String ejecutar(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
-		Libro libro = new Libro ();
-		List<Categoria> listaDeCategorias = null;
-		listaDeCategorias = Categoria.buscarTodos();
+		LibroDAO libroDAO = new LibroDAOJPAImpl();
+		CategoriaDAO categoriaDAO = new CategoriaDAOJPAImpl();
+		List<Categoria> listaDeCategorias = categoriaDAO.buscarTodos();
+
+		List<Libro> listaDeLibros = libroDAO.buscarTodos();
+		request.setAttribute("listaDeLibros", listaDeLibros);
 		request.setAttribute("listaDeCategorias", listaDeCategorias);
-		request.setAttribute("listaDeLibros", libro.buscarTodos());
-		
-		return "MostrarLibro.jsp";
+		return "MostrarLibros.jsp";
 	}
 
 

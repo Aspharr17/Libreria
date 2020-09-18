@@ -4,7 +4,7 @@ function validar(id)
     var titulo = document.getElementById("titulo").value;
     var categoria = document.getElementById("categoria").value;
     var formInsertar = document.getElementById("formInsertar");
-    if(isbn != "" && titulo != "" && categoria !="" && Number.isInteger(parseInt(isbn)))
+    if(isbn != "" && titulo != "" && categoria !="seleccionar" && Number.isInteger(parseInt(isbn)))
     {
     	
     	alert("Guardado");

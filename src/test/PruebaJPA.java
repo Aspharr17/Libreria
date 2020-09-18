@@ -15,6 +15,8 @@ public class PruebaJPA {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		PruebaJPA pr = new PruebaJPA();
+		pr.select();
+		pr.insert();
 		
 
 	}

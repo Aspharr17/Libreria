@@ -22,7 +22,7 @@
 				<input type = "text" name = "titulo" id ="titulo"/>
 			</p>
 			<p>
-				<label for =  "autor"> autor: </label>
+				<label for =  "autor"> Autor: </label>
 				<select name = "autor" id ="autor">
 					<option value = "seleccionar" >Seleccionar</option>
 					<c:forEach var="autor" items ="${listaDeAutores}">
@@ -30,6 +30,7 @@
 					</c:forEach>
 			</select>
 			</p>
+			<label for =  "categoria"> Categoria: </label>
 			<select name = "categoria" id ="categoria">
 				<option value = "seleccionar" >Seleccionar</option>
 				<c:forEach var="categoria" items ="${listaDeCategorias}">

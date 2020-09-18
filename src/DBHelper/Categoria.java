@@ -8,9 +8,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 
 @Entity
 @Table(name = "Categorias")
@@ -54,22 +51,7 @@ public class Categoria {
 	public Categoria() {
 		super();
 	}
-	@SuppressWarnings("unchecked")
-	public static List<Categoria> buscarTodos() 
-	{
-		SessionFactory factoriaSession = new Configuration().configure().buildSessionFactory();
-		Session session = factoriaSession.openSession();
-		List<Categoria> listaDeCategorias = session.createQuery("from Categoria categoria").list();
-		session.close();
-		return listaDeCategorias;
-	}
+
 	
-	public Categoria buscarCategoria(int id_cat)
-	{
-		SessionFactory factoriaSession = new Configuration().configure().buildSessionFactory();
-		Session session = factoriaSession.openSession();
-		Categoria categoria = (Categoria)session.get(Categoria.class,id_cat);
-		return categoria;
-	}
 
 }

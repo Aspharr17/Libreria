@@ -2,11 +2,12 @@ package controlador.acciones;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import DBHelper.*;
+import dao.LibroDAO;
+import dao.LibroDAOJPAImpl;
 /**
  * Servlet implementation class LibroInsertar
  */
@@ -29,7 +30,8 @@ public class LibroInsertarAccion extends Accion{
 			Autor autor = new Autor(Integer.parseInt(request.getParameter("autor")));
 
 			Libro libro = new Libro(isbn, titulo, autor, categoria);
-			libro.insertar();
+			LibroDAO libroDAO = new LibroDAOJPAImpl();
+			libroDAO.insertar(libro);
 			//MUESTRA PAGINA DE OPCIONES PARA SEGUIR INSERTANDO O MOSTRAR LOS LIBROS
 			String page = "<html>"
 						+ "<head>"
@@ -47,12 +49,6 @@ public class LibroInsertarAccion extends Accion{
 		}catch(DBException e)
 		{
 			out.println(e.getMessage());
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

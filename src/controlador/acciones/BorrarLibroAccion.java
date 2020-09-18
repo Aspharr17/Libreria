@@ -1,9 +1,10 @@
 package controlador.acciones;
 
-import java.sql.SQLException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import DBHelper.Libro;
+import dao.LibroDAO;
+import dao.LibroDAOJPAImpl;
 
 /**
  * Servlet implementation class BorrarLibro
@@ -16,13 +17,9 @@ public class BorrarLibroAccion extends Accion {
 		//SUSTITUYE AL JSP InstertarLibro
 			String isbn= request.getParameter("isbn");
 			Libro libro= new Libro();
+			LibroDAO libroDAO = new LibroDAOJPAImpl();
 			libro.setCve_lib(Integer.parseInt(isbn));
-			try {
-				libro.borrar();
-			} catch (ClassNotFoundException | SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			libroDAO.borrar(libro);
 
 		return "MostrarLibro.do";
 	}
