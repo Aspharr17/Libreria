@@ -24,7 +24,7 @@
 		<input type = "text" name = "categoria" id = "categoria"/>
 	</p>
 	<p>
-		<input type = "submit" value = "Insertar" onclick = "validar();"/>
+		<input type = "submit" value = "Insertar" onclick = "validar('nuevo');"/>
 	</p>
 </fieldset>
 </form>

@@ -71,4 +71,21 @@ public class Libro {
 		DataBaseHelper<Libro> helper = new DataBaseHelper<Libro>();
 		helper.modificarRegistro(consultaSQL);
 		}
+	public static Libro buscarPorClave(String isbn)
+	{
+		String consultaSQL = "select isbn, titulo, categoria FROM libros WHERE isbn="+isbn;
+		DataBaseHelper<Libro> helper = new DataBaseHelper<Libro>();
+		List<Libro> listaDeLibros = helper.seleccionarRegistros(consultaSQL, Libro.class);
+		System.out.println(listaDeLibros.get(0).getIsbn()+"   "+
+							listaDeLibros.get(0).getTitulo()+"  "+
+							listaDeLibros.get(0).getCategoria());
+		return listaDeLibros.get(0);
+	}
+	public void guardar() 
+	{
+		String consultaSQL = "UPDATE libros SET titulo= '"+ titulo+"', categoria= '"+categoria+
+							"' WHERE isbn="+isbn;
+		DataBaseHelper<Libro> helper = new DataBaseHelper<Libro>();
+		helper.modificarRegistro(consultaSQL);
+	}
 }
