@@ -15,9 +15,9 @@
 <body>
 	<form action="FiltrarLibros.do">
 		<select name = "sel_categoria" id ="sel_categoria">
-		<option value = "seleccionar" >Seleccionar</option>
-			<c:forEach var="categoria" items ="${listaDeCategorias}">
-				<option value = "${categoria}">${categoria}</option>
+				<option value = "seleccionar" >Seleccionar</option>
+				<c:forEach var="categoria" items ="${listaDeCategorias}">
+				<option value = "${categoria.id_cat}">${categoria.des_cat}</option>
 			</c:forEach>
 		</select>
 		<input type = "submit" value = "Filtrar"/>
@@ -27,16 +27,19 @@
 		<tr>
 			<th>ISBN</th>
 			<th>Título</th>
+			<th>Autor</th>
 			<th>Categoría</th>
 			<th>Opciones</th>
 		</tr>
 		<c:forEach var="libro" items ="${listaDeLibros}">
 			<tr>
-				<td><c:out value="${libro.getIsbn()}"></c:out></td>
-				<td><c:out value="${libro.getTitulo()}"></c:out></td>
-				<td><c:out value="${libro.getCategoria()}"></c:out></td>
-				<td><a href = "BorrarLibro.do?isbn=${libro.isbn}">Borrar</a></td>
-				<td><a href="FormularioEditarLibro.do?isbn=${libro.getIsbn()}">Editar</a></td>	
+				<td><c:out value="${libro.cve_lib}"></c:out></td>
+				<td><c:out value="${libro.tit_lib}"></c:out></td>
+				<td><c:out value="${libro.autor.nom_aut}"></c:out></td>
+				<td><c:out value="${libro.categoria.des_cat}"></c:out></td>
+				
+				<td><a href = "BorrarLibro.do?isbn=${libro.cve_lib}">Borrar</a></td>
+				<td><a href="FormularioEditarLibro.do?isbn=${libro.getCve_lib()}">Editar</a></td>	
 			</tr>
 		</c:forEach>	
 	</table>

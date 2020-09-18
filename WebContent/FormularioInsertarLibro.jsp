@@ -6,6 +6,8 @@
 	<script src ="js/validation.js" type ="text/javascript"></script>
     <meta http-equiv ="Content-Type" content="text/html;charset=UTF-8"/>
 	<link rel="stylesheet" type="text/css" href="css/styles.css"/>
+	<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>	 
+	
 </head>
 <body>
 	<form id ="formInsertar" action = "LibroInsertar.do" onsubmit = "return validar()">
@@ -20,9 +22,21 @@
 				<input type = "text" name = "titulo" id ="titulo"/>
 			</p>
 			<p>
-				<label for =  "categoria"> Categoria: </label>
-				<input type = "text" name = "categoria" id = "categoria"/>
+				<label for =  "autor"> autor: </label>
+				<select name = "autor" id ="autor">
+					<option value = "seleccionar" >Seleccionar</option>
+					<c:forEach var="autor" items ="${listaDeAutores}">
+					<option value = "${autor.id_aut}">${autor.nom_aut}</option>
+					</c:forEach>
+			</select>
 			</p>
+			<select name = "categoria" id ="categoria">
+				<option value = "seleccionar" >Seleccionar</option>
+				<c:forEach var="categoria" items ="${listaDeCategorias}">
+				<option value = "${categoria.id_cat}">${categoria.des_cat}</option>
+			</c:forEach>
+			</select>
+
 			<p>
 				<input type = "submit" id ="btnInsert" value = "Insertar" />
 			</p>

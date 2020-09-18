@@ -12,6 +12,8 @@
         <property name="connection.pool_size">5</property>
         <property name="show_sql">true</property>
 		<mapping class="DBHelper.Libro"/>
+		<mapping class="DBHelper.Categoria"/>
+		<mapping class="DBHelper.Autor"/>
 	
         
     </session-factory>

@@ -16,7 +16,7 @@ public class BorrarLibroAccion extends Accion {
 		//SUSTITUYE AL JSP InstertarLibro
 			String isbn= request.getParameter("isbn");
 			Libro libro= new Libro();
-			libro.setIsbn(Integer.parseInt(isbn));
+			libro.setCve_lib(Integer.parseInt(isbn));
 			try {
 				libro.borrar();
 			} catch (ClassNotFoundException | SQLException e) {

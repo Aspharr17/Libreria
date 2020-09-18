@@ -4,6 +4,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import DBHelper.Categoria;
 import DBHelper.Libro;
 
 /**
@@ -26,7 +27,9 @@ public class FiltrarLibrosAccion extends Accion {
 			listaDeLibros =Libro.buscarPorCategoria(request.getParameter("sel_categoria"));
 
 		}
-		request.setAttribute("listaDeCategorias", libro.buscarTodasLasCategorias());
+		List<Categoria> listaDeCategorias = null;
+		listaDeCategorias = Categoria.buscarTodos();
+		request.setAttribute("listaDeCategorias", listaDeCategorias);
 		request.setAttribute("listaDeLibros", listaDeLibros);
 		return "MostrarLibro.jsp";
 	}

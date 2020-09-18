@@ -19,19 +19,29 @@
 		<fieldset>
 			<p>
 				<label for ="clave">ISBN: </label>
-				<input type = "text" name ="isbn" id = "isbn" value = "${libro.getIsbn()}" />
+				<input type = "text" name ="isbn" id = "isbn" value = "${libro.getCve_lib()}" />
 			</p>
 			<p>	
 				<label for = "titulo">Titulo: </label>
-				<input type = "text" name = "titulo" id ="titulo"value ="${libro.getTitulo()}" />
+				<input type = "text" name = "titulo" id ="titulo"value ="${libro.getTit_lib()}" />
+			</p>
+				<p>	
+				<label for = "autor">Autor: </label>
+			<select name = "autor" id ="autor">
+				<option value = "seleccionar" >Seleccionar</option>
+				<c:forEach var="autor" items ="${listaDeAutores}">
+				<option value = "${autor.id_aut}">${autor.nom_aut}</option>
+			</c:forEach>
+			</select>					
 			</p>
 	
 			<select name = "categoria" id ="categoria">
 				<option value = "seleccionar" >Seleccionar</option>
 				<c:forEach var="categoria" items ="${listaDeCategorias}">
-				<option value = "${categoria}">${categoria}</option>
+				<option value = "${categoria.id_cat}">${categoria.des_cat}</option>
 				</c:forEach>
 			</select>	
+		
 			<p>
 				<input type = "submit" value = "Guardar"/>
 			</p>

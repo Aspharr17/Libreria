@@ -25,8 +25,10 @@ public class LibroInsertarAccion extends Accion{
 			//SUSTITUYE AL JSP InstertarLibro
 			int isbn = Integer.parseInt( request.getParameter("isbn"));
 			String titulo = request.getParameter("titulo");
-			String categoria = request.getParameter("categoria");
-			Libro libro = new Libro(isbn, titulo, categoria);
+			Categoria categoria = new Categoria(Integer.parseInt(request.getParameter("categoria")));
+			Autor autor = new Autor(Integer.parseInt(request.getParameter("autor")));
+
+			Libro libro = new Libro(isbn, titulo, autor, categoria);
 			libro.insertar();
 			//MUESTRA PAGINA DE OPCIONES PARA SEGUIR INSERTANDO O MOSTRAR LOS LIBROS
 			String page = "<html>"

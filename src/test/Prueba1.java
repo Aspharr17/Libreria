@@ -12,6 +12,8 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
+import DBHelper.Autor;
+import DBHelper.Categoria;
 import DBHelper.Libro;
 
 public class Prueba1 
@@ -20,12 +22,12 @@ public class Prueba1
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Prueba1 p1 = new Prueba1();
-		//p1.insertarLibro();
-		//p1.select();
-		//int isbn = Integer.parseInt(JOptionPane.showInputDialog("Ingrese isbn de libro"));
-		//p1.selectLibro(isbn);
-		//p1.delete(isbn);
-		//p1.select();
+		p1.insertarLibro();
+		p1.select();
+		int isbn = Integer.parseInt(JOptionPane.showInputDialog("Ingrese isbn de libro"));
+		p1.selectLibro(isbn);
+		p1.delete(isbn);
+		p1.select();
 		p1.filtrado();
 	}
 	private void insertarLibro()
@@ -37,7 +39,9 @@ public class Prueba1
 			SessionFactory factoria = new Configuration().configure().buildSessionFactory();
 			session = factoria.openSession();
 			transaccion = session.beginTransaction();
-			Libro libro = new Libro(3,"java","programacion");
+			Categoria categoria = new Categoria();
+			Autor autor = new Autor();
+			Libro libro = new Libro(3,"java",autor, categoria);
 			session.saveOrUpdate(libro);
 			transaccion.commit();
 		
@@ -53,6 +57,7 @@ public class Prueba1
 		}
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void select()
 	{
 		Session session = null;
@@ -62,12 +67,10 @@ public class Prueba1
 			session = factoria.openSession();
 			Query consulta = session.createQuery("from Libro libro");
 			List<Libro> lista = consulta.list();
-			for(Libro l: lista)
-			{
-				System.out.println(l.getIsbn());
-				System.out.println(l.getTitulo());
-				System.out.println(l.getCategoria());
-			}
+			for(Libro l :lista) {
+				System.out.println(l.getTit_lib());
+				System.out.println(l.getCategoria().getDes_cat());
+				}
 		}
 		catch(HibernateException e)
 		{
@@ -78,6 +81,7 @@ public class Prueba1
 		}
 			
 	}
+	@SuppressWarnings("unused")
 	private void selectLibro(int isbn)
 	{
 		Session session = null;
@@ -86,9 +90,9 @@ public class Prueba1
 			SessionFactory factoria = new Configuration().configure().buildSessionFactory();
 			session = factoria.openSession();
 			Libro libro = session.get(Libro.class, isbn);
-			System.out.println(libro.getIsbn());
-			System.out.println(libro.getTitulo());
-			System.out.println(libro.getCategoria());
+			//System.out.println(libro.getIsbn());
+			//System.out.println(libro.getTitulo());
+			//System.out.println(libro.getCategoria());
 		}
 		catch(HibernateException e)
 		{
@@ -121,6 +125,7 @@ public class Prueba1
 			session.close();
 		}
 	}
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void filtrado()
 	{
 		Session session = null;
@@ -143,9 +148,9 @@ public class Prueba1
 			List<Libro> lista = consulta.list();
 			for(Libro l: lista)
 			{
-				System.out.println(l.getIsbn());
-				System.out.println(l.getTitulo());
-				System.out.println(l.getCategoria());
+				System.out.println(l.getCve_lib());
+				//System.out.println(l.getTitulo());
+				//System.out.println(l.getCategoria());
 			}
 		}
 		catch(HibernateException e)

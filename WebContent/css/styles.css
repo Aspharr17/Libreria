@@ -41,7 +41,7 @@ td, th{
 {
 	text-align: center;
 }
-#isbn,#titulo,#categoria
+#isbn,#titulo,#categoria,#autor
 {
 	width: 100%;
   	border-color: DodgerBlue;
