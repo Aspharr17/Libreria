@@ -9,7 +9,9 @@
 </head>
         
 <body>
-<form >
+<%@ page import = "controller.LibroInsertar" %>
+
+<form action = "LibroInsertar" method = "post">
 <fieldset id= "fs">
 	<legend>Formulario alta libro</legend>
 	<p>
@@ -27,7 +29,7 @@
 		<input type = "text" name = "categoria" id = "categoria"/>
 	</p>
 	<p>
-		<input type = "submit" id ="btnInsert" value = "Insertar" onclick = "validar('nuevo');"/>
+		<input type = "submit" id ="btnInsert" value = "Insertar" />
 	</p>
 </fieldset>
 </form>

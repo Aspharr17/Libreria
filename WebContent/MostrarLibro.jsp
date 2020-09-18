@@ -47,6 +47,9 @@
 
 %>
 <br/>
+</form>
+<%@ page import = "controller.LibroInsertar" %>
+<form action = "BorrarLibro" method = "post">
 <table id ="tb_lib">
 	<tr>
 		<th>ISBN</th>
@@ -60,7 +63,7 @@
 		<td><c:out value="${libro.getIsbn()}"></c:out></td>
 		<td><c:out value="${libro.getTitulo()}"></c:out></td>
 		<td><c:out value="${libro.getCategoria()}"></c:out></td>
-		<td><a href="BorrarLibro.jsp?isbn=${libro.getIsbn()}">Borrar</a>
+		<td><button name ="isbn" type= "submit" value ="${libro.getIsbn()}">Borrar</button>
 		<a href="FormularioEditarLibro.jsp?isbn=${libro.getIsbn()}">Editar</a></td>	
 	</tr>
 	</c:forEach>	

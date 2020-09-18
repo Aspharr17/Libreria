@@ -19,7 +19,9 @@
 	<link rel="stylesheet" type="text/css" href="css/styles.css"/>
 </head>
 <body>
-	<form id = "formularioEdicion" action ="GuardarLibro.jsp">
+<%@ page import = "controller.GuardarLibro" %>
+
+	<form action ="GuardarLibro" method = "post">
 		<fieldset>
 		<p>
 			<label for ="clave">ISBN: </label>
@@ -41,7 +43,7 @@
 			</c:forEach>
 		</select>	
 		<p>
-			<input type = "submit" value = "Guardar" onclick = "validar('edit');"/>
+			<input type = "submit" value = "Guardar"/>
 		</p>
 		</fieldset>
 	
