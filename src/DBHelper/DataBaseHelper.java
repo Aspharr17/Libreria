@@ -9,7 +9,7 @@ import java.sql.Statement;
 
 public class DataBaseHelper {
 	private static final String DRIVER = "com.mysql.jdbc.Driver";
-	private static final String URL = "jdbc:mysql://localhost/Libreria";
+	private static final String URL = "jdbc:mysql://localhost/libreria";
 	private static final String USUARIO = "Aspharr17";
 	private static final String CLAVE = "Ghostrecon17";
 	
@@ -41,6 +41,7 @@ public class DataBaseHelper {
 		}
 		return filasAfectadas;
 	}
+	
 	public ResultSet seleccionarRegistros(String consultaSQL) {
 		
 		Connection conexion = null;
