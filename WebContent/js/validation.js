@@ -3,39 +3,18 @@ function validar(id)
 	var isbn = document.getElementById("isbn").value;
     var titulo = document.getElementById("titulo").value;
     var categoria = document.getElementById("categoria").value;
-    if(isbn != "" && titulo != "" && categoria !="")
+    var formInsertar = document.getElementById("formInsertar");
+    if(isbn != "" && titulo != "" && categoria !="" && Number.isInteger(parseInt(isbn)))
     {
     	
-    	if(Number.isInteger(parseInt(isbn)))
-    	{            
-    		if(id=='nuevo')
-    		{
-
-    			document.forms[0].action = "InsertarLibro.jsp?ISBN="+isbn+"&titulo="+titulo+"&categoria="+categoria;
-                document.forms[0].method = "post";
-                document.forms[0].submit();
-    		}
-    		else
-    		{
-
-    			document.forms[0].action = "GuardarLibro.jsp?ISBN="+isbn+"&titulo="+titulo+"&categoria="+categoria;
-                document.forms[0].method = "post";
-                document.forms[0].submit();
-    		}
-
-            
-    	}
-    	else
-    	{
-    		alert("Formato de ISBN incorrecto");
-    	}
-        
+    	alert("Guardado");
+    	formInsertar.submit();
 
     }
     else
     {
         alert("Faltan datos");
-
+        return false;
     }
     
 }

@@ -15,30 +15,27 @@
 	<link rel="stylesheet" type="text/css" href="css/styles.css"/>
 </head>
 <body>
-
 	<form action ="GuardarLibro.do" >
 		<fieldset>
-		<p>
-			<label for ="clave">ISBN: </label>
-			<input type = "text" name ="isbn" id = "isbn" value = "${libro.getIsbn()}" />
-		</p>
-		<p>	
-			<label for = "titulo">Titulo: </label>
-			<input type = "text" name = "titulo" id ="titulo"value ="${libro.getTitulo()}" />
-		</p>
-
-		<select name = "categoria" id ="categoria">
-			<option value = "seleccionar" >Seleccionar</option>
-			<c:forEach var="categoria" items ="${listaDeCategorias}">
-			<option value = "${categoria}">${categoria}</option>
-			</c:forEach>
-		</select>	
-		<p>
-			<input type = "submit" value = "Guardar"/>
-		</p>
-		</fieldset>
+			<p>
+				<label for ="clave">ISBN: </label>
+				<input type = "text" name ="isbn" id = "isbn" value = "${libro.getIsbn()}" />
+			</p>
+			<p>	
+				<label for = "titulo">Titulo: </label>
+				<input type = "text" name = "titulo" id ="titulo"value ="${libro.getTitulo()}" />
+			</p>
 	
-
+			<select name = "categoria" id ="categoria">
+				<option value = "seleccionar" >Seleccionar</option>
+				<c:forEach var="categoria" items ="${listaDeCategorias}">
+				<option value = "${categoria}">${categoria}</option>
+				</c:forEach>
+			</select>	
+			<p>
+				<input type = "submit" value = "Guardar"/>
+			</p>
+		</fieldset>
 	</form>
 </body>
 </html>

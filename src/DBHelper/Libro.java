@@ -2,13 +2,42 @@ package DBHelper;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+@Entity
+@Table(name="Libros")
 public class Libro {
-		
+	@Id
 	private int isbn;
 	private String titulo;
 	private String categoria;
 	
+	@Override
+	public int hashCode()
+	{
+		Integer isbn = new Integer(this.isbn);
+		return isbn.hashCode();
+	}
+	@Override
+	public boolean equals(Object o)
+	{
+		int isbnLibro = ((Libro)o).getIsbn();
+		if(isbnLibro == isbn)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 	
 	public int getIsbn() {
 		return isbn;
@@ -29,6 +58,11 @@ public class Libro {
 		this.categoria = categoria;
 	}
 	
+	
+	public Libro(int isbn) {
+		super();
+		this.isbn = isbn;
+	}
 	public Libro(int isbn, String titulo, String categoria) {
 		
 		this.isbn = isbn;
@@ -42,55 +76,67 @@ public class Libro {
 	
 	public void insertar () throws ClassNotFoundException, SQLException
 	{
-		String consultaSQL = "insert into Libros(isbn,titulo,categoria) values";
-		consultaSQL += "("+isbn+", '"+titulo+"', '"+categoria+"')";
-		DataBaseHelper<Libro> helper = new DataBaseHelper<Libro>();
-		helper.modificarRegistro(consultaSQL);
+		System.out.println("Insertar");
+		SessionFactory factoriaSession = new Configuration().configure().buildSessionFactory();
+		Session session = factoriaSession.openSession();
+		session.beginTransaction();
+		session.save(this);
+		session.getTransaction().commit();
+
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Libro> buscarTodos() 
 	{
-		String consultaSQL = "select isbn,titulo,categoria from Libros";
-		DataBaseHelper<Libro> helper = new DataBaseHelper<Libro>();
-		List<Libro> listaDeLibros = helper.seleccionarRegistros(consultaSQL,
-		Libro.class);
+		SessionFactory factoriaSession = new Configuration().configure().buildSessionFactory();
+		Session session = factoriaSession.openSession();
+		String consulta = "from Libro libro";
+		List<Libro> listaDeLibros = session.createQuery(consulta).list();
+		session.close();
 		return listaDeLibros;
 	}
-	public List<String> buscarTodasLasCategorias() 
+	@SuppressWarnings("unchecked")
+	public List<Libro> buscarTodasLasCategorias() 
 	{
-		String consultaSQL = "select distinct(categoria) as categoria from Libros";
-		DataBaseHelper<String> helper = new DataBaseHelper<String>();
-		List<String>listaDeCategorias = helper.seleccionarRegistros(consultaSQL,
-		String.class);
+		SessionFactory factoriaSession = new Configuration().configure().buildSessionFactory();
+		Session session = factoriaSession.openSession();
+		String consulta = "select distinct libro.categoria from Libro libro";
+		List<Libro> listaDeCategorias = session.createQuery(consulta).list();
+		session.close();
 		return listaDeCategorias;
 	}
 	public void borrar() throws ClassNotFoundException, SQLException 
 	{
-		String consultaSQL = "delete from Libros where isbn="+ this.isbn;
-		DataBaseHelper<Libro> helper = new DataBaseHelper<Libro>();
-		helper.modificarRegistro(consultaSQL);
+		SessionFactory factoriaSession = new Configuration().configure().buildSessionFactory();
+		Session session = factoriaSession.openSession();
+		session.beginTransaction();
+		session.delete(this);
+		session.getTransaction().commit();
 		}
-	public static Libro buscarPorClave(String isbn)
+	public static Libro buscarPorClave(int isbn)
 	{
-		String consultaSQL = "select isbn, titulo, categoria FROM libros WHERE isbn="+isbn;
-		DataBaseHelper<Libro> helper = new DataBaseHelper<Libro>();
-		List<Libro> listaDeLibros = helper.seleccionarRegistros(consultaSQL, Libro.class);
-
-		return listaDeLibros.get(0);
+		SessionFactory factoriaSession = new Configuration().configure().buildSessionFactory();
+		Session session = factoriaSession.openSession();
+		Libro libro = (Libro) session.get(Libro.class, isbn);
+		session.close();
+		return libro;
 	}
 	public void guardar() throws ClassNotFoundException, SQLException
 	{
-		String consultaSQL = "UPDATE libros SET titulo= '"+ titulo+"', categoria= '"+categoria+
-							"' WHERE isbn="+isbn;
-		DataBaseHelper<Libro> helper = new DataBaseHelper<Libro>();
-		helper.modificarRegistro(consultaSQL);
+		SessionFactory factoriaSession = new Configuration().configure().buildSessionFactory();
+		Session session = factoriaSession.openSession();
+		session.beginTransaction();
+		session.saveOrUpdate(this);
+		session.getTransaction().commit();
 	}
 	
+	@SuppressWarnings("unchecked")
 	public static List<Libro> buscarPorCategoria(String categoria)
 	{
-		String consultaSQL = "SELECT isbn,titulo,categoria FROM libros WHERE categoria='"+categoria+"'";
-		DataBaseHelper<Libro> helper = new DataBaseHelper<Libro>();
-		List<Libro> listaDeLibros = helper.seleccionarRegistros(consultaSQL, Libro.class);
+		SessionFactory factoria = new Configuration().configure().buildSessionFactory();
+		Session session = factoria.openSession();
+		String consulta = "from Libro libro where libro.categoria = '"+categoria+"'";
+		List<Libro> listaDeLibros = session.createQuery(consulta).list();
 		return listaDeLibros;
 		
 	}

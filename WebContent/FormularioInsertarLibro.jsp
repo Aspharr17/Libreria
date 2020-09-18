@@ -7,30 +7,26 @@
     <meta http-equiv ="Content-Type" content="text/html;charset=UTF-8"/>
 	<link rel="stylesheet" type="text/css" href="css/styles.css"/>
 </head>
-        
 <body>
-
-<form action = "LibroInsertar.do">
-<fieldset id= "fs">
-	<legend>Formulario alta libro</legend>
-	<p>
-		<label for ="clave">ISBN: </label>
-		<input type = "text" name ="isbn" id = "isbn" />
-	</p>
-	<p>
-		<label for = "titulo">Titulo: </label>
-
-		<input type = "text" name = "titulo" id ="titulo"/>
-	</p>
-	<p>
-		<label for =  "categoria"> Categoria: </label>
-
-		<input type = "text" name = "categoria" id = "categoria"/>
-	</p>
-	<p>
-		<input type = "submit" id ="btnInsert" value = "Insertar" />
-	</p>
-</fieldset>
-</form>
+	<form id ="formInsertar" action = "LibroInsertar.do" onsubmit = "return validar()">
+		<fieldset id= "fs">
+			<legend>Formulario alta libro</legend>
+			<p>
+				<label for ="clave">ISBN: </label>
+				<input type = "text" name ="isbn" id = "isbn" />
+			</p>
+			<p>
+				<label for = "titulo">Titulo: </label>
+				<input type = "text" name = "titulo" id ="titulo"/>
+			</p>
+			<p>
+				<label for =  "categoria"> Categoria: </label>
+				<input type = "text" name = "categoria" id = "categoria"/>
+			</p>
+			<p>
+				<input type = "submit" id ="btnInsert" value = "Insertar" />
+			</p>
+		</fieldset>
+	</form>
 </body>
 </html>
