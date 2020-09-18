@@ -9,4 +9,16 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
+  
+  <servlet>
+  	<description></description>
+  	<display-name>Controlador</display-name>
+  	<servlet-name>Controlador</servlet-name>
+  	<servlet-class>controller.Controlador</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>Controlador</servlet-name>
+  	<url-pattern>*.do</url-pattern>
+  </servlet-mapping>
 </web-app>

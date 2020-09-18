@@ -13,43 +13,21 @@
 <title>Lista de libros</title>
 </head>
 <body>
-<form action="MostrarLibro.jsp">
+<form action="FiltrarLibros.do">
 
 <select name = "sel_categoria" id ="sel_categoria">
 <option value = "seleccionar" >Seleccionar</option>
 
-<%
-	List<String> listaDeCategorias=null;
-	listaDeCategorias=Libro.buscarTodasLasCategorias();
-	pageContext.setAttribute("listaDeCategorias",listaDeCategorias);
-%>
 	<c:forEach var="categoria" items ="${listaDeCategorias}">
 		<option value = "${categoria}">${categoria}</option>
 	</c:forEach>
 </select>
 
-<input type = "submit" value = "Filtrar" name ="filtrar"/>
+<input type = "submit" value = "Filtrar"/>
 
-<%
-	List<Libro> listaDeLibros=null;
-	
-	if (request.getParameter("sel_categoria")==null || request.getParameter("sel_categoria").equals("seleccionar")) 
-	{
-		listaDeLibros=Libro.buscarTodos();
-	
-	}
-	else 
-	{
-		listaDeLibros=Libro.buscarPorCategoria(request.getParameter("sel_categoria"));
-
-	}
-	pageContext.setAttribute("listaDeLibros",listaDeLibros);	
-
-%>
 <br/>
 </form>
-<%@ page import = "controller.LibroInsertar" %>
-<form action = "BorrarLibro" method = "post">
+
 <table id ="tb_lib">
 	<tr>
 		<th>ISBN</th>
@@ -63,15 +41,14 @@
 		<td><c:out value="${libro.getIsbn()}"></c:out></td>
 		<td><c:out value="${libro.getTitulo()}"></c:out></td>
 		<td><c:out value="${libro.getCategoria()}"></c:out></td>
-		<td><button name ="isbn" type= "submit" value ="${libro.getIsbn()}">Borrar</button>
-		<a href="FormularioEditarLibro.jsp?isbn=${libro.getIsbn()}">Editar</a></td>	
+		<td><a href = "BorrarLibro.do?isbn=${libro.isbn}">Borrar</a></td>
+		<td><a href="FormularioEditarLibro.do?isbn=${libro.getIsbn()}">Editar</a></td>	
 	</tr>
 	</c:forEach>	
 	
 </table>
 
-</form>
 <br />
-<a href="FormularioInsertarLibro.jsp">Insertar Libro</a>
+<a href="FormularioInsertarLibro.do">Insertar Libro</a>
 </body>
 </html>

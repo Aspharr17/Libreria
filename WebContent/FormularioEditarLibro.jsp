@@ -7,11 +7,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
-<% 
-	Libro libro = Libro.buscarPorClave(request.getParameter("isbn"));
-	pageContext.setAttribute("libro",libro);	
 
-%>
 <head>
 	<title>Editar</title>
 	<script src ="js/validation.js" type ="text/javascript"></script>
@@ -19,9 +15,8 @@
 	<link rel="stylesheet" type="text/css" href="css/styles.css"/>
 </head>
 <body>
-<%@ page import = "controller.GuardarLibro" %>
 
-	<form action ="GuardarLibro" method = "post">
+	<form action ="GuardarLibro.do" >
 		<fieldset>
 		<p>
 			<label for ="clave">ISBN: </label>
@@ -31,11 +26,7 @@
 			<label for = "titulo">Titulo: </label>
 			<input type = "text" name = "titulo" id ="titulo"value ="${libro.getTitulo()}" />
 		</p>
-		<%
-		List<String> listaDeCategorias=null;
-		listaDeCategorias=Libro.buscarTodasLasCategorias();
-		pageContext.setAttribute("listaDeCategorias",listaDeCategorias);
-		%>
+
 		<select name = "categoria" id ="categoria">
 			<option value = "seleccionar" >Seleccionar</option>
 			<c:forEach var="categoria" items ="${listaDeCategorias}">

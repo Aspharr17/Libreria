@@ -48,7 +48,7 @@ public class Libro {
 		helper.modificarRegistro(consultaSQL);
 	}
 
-	public static List<Libro> buscarTodos() 
+	public List<Libro> buscarTodos() 
 	{
 		String consultaSQL = "select isbn,titulo,categoria from Libros";
 		DataBaseHelper<Libro> helper = new DataBaseHelper<Libro>();
@@ -56,7 +56,7 @@ public class Libro {
 		Libro.class);
 		return listaDeLibros;
 	}
-	public static List<String> buscarTodasLasCategorias() 
+	public List<String> buscarTodasLasCategorias() 
 	{
 		String consultaSQL = "select distinct(categoria) as categoria from Libros";
 		DataBaseHelper<String> helper = new DataBaseHelper<String>();

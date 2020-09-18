@@ -9,9 +9,8 @@
 </head>
         
 <body>
-<%@ page import = "controller.LibroInsertar" %>
 
-<form action = "LibroInsertar" method = "post">
+<form action = "LibroInsertar.do">
 <fieldset id= "fs">
 	<legend>Formulario alta libro</legend>
 	<p>
