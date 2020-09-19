@@ -79,12 +79,6 @@ public class Libro {
 	}
 	
 */
-	public Libro() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-
 
 	public Autor getAutor() {
 		return autor;
@@ -101,6 +95,16 @@ public class Libro {
 		this.autor = autor;
 		this.categoria = categoria;
 	}
+	
+	public Libro() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
+	public Libro(int cve_lib) {
+		super();
+		this.cve_lib = cve_lib;
+	}
+	
 	
 }

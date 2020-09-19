@@ -7,11 +7,12 @@
 <html>
 <head>
 	<link rel="stylesheet" type="text/css" href="css/styles.css"/>
-
+	<script src ="js/validation.js" type ="text/javascript"></script>
+	
 <title>Lista de libros</title>
 </head>
 <body>
-	<form action="FiltrarLibros.do">
+	<form id = "formFiltro"  onsubmit = "return filtro()">
 		<select name = "sel_categoria" id ="sel_categoria">
 				<option value = "seleccionar" >Seleccionar</option>
 				<c:forEach var="categoria" items ="${listaDeCategorias}">

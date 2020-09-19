@@ -6,10 +6,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import abstractas.Accion;
-import abstractas.DAOAbstractFactory;
-import entidades.*;
-import interfaces.DAOFactory;
-import interfaces.LibroDAO;
+import entidades.Autor;
+import entidades.Categoria;
+import entidades.Libro;
+import entidades.ServicioLibrosImpl;
+import interfaces.ServicioLibros;
 import sevlets.excepciones.DBException;
 /**
  * Servlet implementation class LibroInsertar
@@ -20,33 +21,36 @@ public class LibroInsertarAccion extends Accion{
 	public String ejecutar(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
 		//Setea la salida como html
+		
+		ServicioLibros servicioLibros = new ServicioLibrosImpl();
+
 		response.setContentType("text/html; charset=utf-8");
 		PrintWriter out = null;
-		DAOFactory factoria = DAOAbstractFactory.getInstance("JPA");
-
+		
 		try
 		{
-			 out = response.getWriter();
+			out = response.getWriter();
 			 
-			int isbn = Integer.parseInt( request.getParameter("isbn"));
-			String titulo = request.getParameter("titulo");
-			LibroDAO libroDAO = factoria.getLibroDAO();
-			libroDAO.insertar(new Libro(isbn,titulo,
-											new Autor(Integer.parseInt(request.getParameter("autor"))),
-											new Categoria(Integer.parseInt(request.getParameter("categoria")))));
+			
+			servicioLibros.insertarLibro(new Libro(Integer.parseInt(request.getParameter("isbn")),
+					request.getParameter("titulo"),
+					new Autor(Integer.parseInt(request.getParameter("autor"))),
+					new Categoria(Integer.parseInt(request.getParameter("categoria"))))
+					);
+			
+			
 			//MUESTRA PAGINA DE OPCIONES PARA SEGUIR INSERTANDO O MOSTRAR LOS LIBROS
 			String page = "<html>"
 						+ "<head>"
 						+ "<title>Registro realizado</title>"
 						+ "</head>"
-						+ "<h1> Se registró el libro "+titulo+" correctamente</h1>"
+						+ "<h1> Se registró el libro "+request.getParameter("titulo")+" correctamente</h1>"
 						+ "<a href=\"FormularioInsertarLibro.jsp\">Insertar Libro</a>"
 						+ "<br/>"
 						+ "<a href= MostrarLibro.do>MostrarLibro </a>"
 						+ "</body>"
 						+ "</html>";
 			out.println(page);
-			
 			
 		}catch(DBException e)
 		{

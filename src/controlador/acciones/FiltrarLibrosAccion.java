@@ -6,45 +6,28 @@ import javax.servlet.http.HttpServletResponse;
 
 import abstractas.Accion;
 import abstractas.DAOAbstractFactory;
-import entidades.Categoria;
 import entidades.Libro;
-import interfaces.CategoriaDAO;
+import entidades.ServicioLibrosImpl;
 import interfaces.DAOFactory;
 import interfaces.LibroDAO;
-
-/**
- * Servlet implementation class FiltrarLibros
- */
+import interfaces.ServicioLibros;
 
 public class FiltrarLibrosAccion extends Accion {
 
 	@Override
 	public String ejecutar(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
+		
+		ServicioLibros servicioLibros = new ServicioLibrosImpl();
 		
 		DAOFactory factoria = DAOAbstractFactory.getInstance("JPA");
-
-		
 		LibroDAO libroDAO = factoria.getLibroDAO();
-		CategoriaDAO categoriaDAO = factoria.getCategoriaDAO();
 		
-		List<Libro> listaDeLibros = null;
-		
-		if (request.getParameter("sel_categoria")==null || request.getParameter("sel_categoria").equals("seleccionar")) 
-		{
-			listaDeLibros = libroDAO.buscarTodos();
-		}
-		else 
-		{
-			Categoria categoria = new Categoria();
-			int id_cat = Integer.parseInt(request.getParameter("sel_categoria"));
-			categoria = categoriaDAO.buscarPorClave(id_cat);
-			listaDeLibros =libroDAO.buscarPorCategoria(categoria);
+		List<Libro> listaDeLibros = libroDAO.buscarPorCategoria(
+										servicioLibros.buscarCategoriaPorClave(
+											Integer.parseInt(request.getParameter("sel_categoria"))));
 
-		}
 		
-		List<Categoria> listaDeCategorias = categoriaDAO.buscarTodos();
-		request.setAttribute("listaDeCategorias", listaDeCategorias);
+		request.setAttribute("listaDeCategorias",servicioLibros.buscarCategoriasLibros());
 		request.setAttribute("listaDeLibros", listaDeLibros);
 		return "MostrarLibros.jsp";
 	}

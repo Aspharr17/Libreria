@@ -7,7 +7,5 @@ import entidades.Libro;
 
 public interface LibroDAO extends GenericDAO<Libro, Integer>
 {
-		
-
 	public abstract List<Libro> buscarPorCategoria(Categoria categoria);
 }

@@ -4,12 +4,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import abstractas.Accion;
-import abstractas.DAOAbstractFactory;
 import entidades.Autor;
 import entidades.Categoria;
 import entidades.Libro;
-import interfaces.DAOFactory;
-import interfaces.LibroDAO;
+import entidades.ServicioLibrosImpl;
+import interfaces.ServicioLibros;
 /**
  * Servlet implementation class GuardarLibro
  */
@@ -20,16 +19,13 @@ public class GuardarLibroAccion extends Accion {
 	{
 		// TODO Auto-generated method stub
 		
-			int isbn = Integer.parseInt(request.getParameter("isbn"));
-			String titulo = request.getParameter("titulo");
+		ServicioLibros servicioLibros = new ServicioLibrosImpl();
 			
-			DAOFactory factoria = DAOAbstractFactory.getInstance("JPA");
-			
-			LibroDAO libroDAO = factoria.getLibroDAO();
-			libroDAO.guardar(new Libro(isbn,titulo,
-											new Autor(Integer.parseInt(request.getParameter("autor"))),
-											new Categoria(Integer.parseInt(request.getParameter("categoria")))));	
-			
+		servicioLibros.salvarLibro(new Libro(Integer.parseInt(request.getParameter("isbn")),
+										request.getParameter("titulo"),
+										new Autor(Integer.parseInt(request.getParameter("autor"))),
+										new Categoria(Integer.parseInt(request.getParameter("categoria"))))
+										);
 			return "MostrarLibro.do";
 	}
 

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import ="java.util.List"%>
-<%@ page import="entidades.*"%>
+<%@ page import="entidades.*"%> 
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>	 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
@@ -15,7 +15,7 @@
 	<link rel="stylesheet" type="text/css" href="css/styles.css"/>
 </head>
 <body>
-	<form action ="GuardarLibro.do" >
+	<form action ="GuardarLibro.do"  onsubmit = "return validar()" >
 		<fieldset>
 			<p>
 				<label for ="clave">ISBN: </label>
@@ -43,7 +43,7 @@
 			</select>	
 		
 			<p>
-				<input type = "submit" value = "Guardar"/>
+				<input type = "submit" value = "Guardar" />
 			</p>
 		</fieldset>
 	</form>
