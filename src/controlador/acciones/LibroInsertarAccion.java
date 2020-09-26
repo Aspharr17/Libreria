@@ -6,11 +6,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import abstractas.Accion;
+import dao.JPA.ServicioLibrosImpl;
 import entidades.Autor;
 import entidades.Categoria;
 import entidades.Libro;
-import entidades.ServicioLibrosImpl;
-import interfaces.ServicioLibros;
 import sevlets.excepciones.DBException;
 /**
  * Servlet implementation class LibroInsertar
@@ -22,7 +21,6 @@ public class LibroInsertarAccion extends Accion{
 		// TODO Auto-generated method stub
 		//Setea la salida como html
 		
-		ServicioLibros servicioLibros = new ServicioLibrosImpl();
 
 		response.setContentType("text/html; charset=utf-8");
 		PrintWriter out = null;
@@ -32,7 +30,7 @@ public class LibroInsertarAccion extends Accion{
 			out = response.getWriter();
 			 
 			
-			servicioLibros.insertarLibro(new Libro(Integer.parseInt(request.getParameter("isbn")),
+			new ServicioLibrosImpl().insertarLibro(new Libro(Integer.parseInt(request.getParameter("isbn")),
 					request.getParameter("titulo"),
 					new Autor(Integer.parseInt(request.getParameter("autor"))),
 					new Categoria(Integer.parseInt(request.getParameter("categoria"))))

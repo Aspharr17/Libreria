@@ -5,8 +5,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import abstractas.Accion;
-import entidades.ServicioLibrosImpl;
-import interfaces.ServicioLibros;
+import dao.JPA.ServicioAutoresImpl;
+import dao.JPA.ServicioCategoriasImpl;
 
 /**
  * Servlet implementation class FormularioInsertarLibroAccion
@@ -19,10 +19,11 @@ public class FormularioInsertarLibroAccion extends Accion
 	@Override
 	public String ejecutar(HttpServletRequest request, HttpServletResponse response) 
 	{
-		ServicioLibros servicioLibros = new ServicioLibrosImpl();
+		//ServicioCategorias servicioCategorias = new ServicioCategoriasImpl();
+		//ServicioAutores servicioAutores = new ServicioAutoresImpl();
 
-		request.setAttribute("listaDeCategorias", servicioLibros.buscarCategoriasLibros());
-		request.setAttribute("listaDeAutores", servicioLibros.buscarAutoresLibros());
+		request.setAttribute("listaDeCategorias", new ServicioCategoriasImpl().buscarCategoriasLibros());
+		request.setAttribute("listaDeAutores", new ServicioAutoresImpl().buscarAutoresLibros());
 		
 		return "FormularioInsertarLibro.jsp";
 	}
