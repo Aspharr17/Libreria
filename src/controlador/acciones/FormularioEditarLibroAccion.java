@@ -6,9 +6,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import abstractas.Accion;
-import dao.JPA.ServicioAutoresImpl;
-import dao.JPA.ServicioCategoriasImpl;
-import dao.JPA.ServicioLibrosImpl;
+import interfaces.ServicioAutores;
+import interfaces.ServicioCategorias;
+import interfaces.ServicioLibros;
 
 /**
  * Servlet implementation class FormularioEditarLibro
@@ -18,15 +18,16 @@ public class FormularioEditarLibroAccion extends Accion
 {
 
 	@Override
-	public String ejecutar(HttpServletRequest request, HttpServletResponse response) {
+	public String ejecutar(HttpServletRequest request, HttpServletResponse response) 
+	{
 		
-		/*ServicioLibros servicioLibros = new ServicioLibrosImpl();
-		ServicioCategorias servicioCategorias = new ServicioCategoriasImpl();
-		ServicioAutores servicioAutores = new ServicioAutoresImpl();
-		 */
-		request.setAttribute("listaDeCategorias", new ServicioCategoriasImpl().buscarCategoriasLibros());
-		request.setAttribute("listaDeAutores", new ServicioAutoresImpl().buscarAutoresLibros());
-		request.setAttribute("libro",new ServicioLibrosImpl().buscarLibroPorClave(Integer.parseInt(request.getParameter("isbn"))));
+		ServicioLibros servicioLib = (ServicioLibros)getBean("servicioLibros", request);
+		ServicioCategorias servicioCat = (ServicioCategorias)getBean("servicioCategorias",request);
+		ServicioAutores servicioAut = (ServicioAutores)getBean("servicioAutores",request);
+		
+		request.setAttribute("listaDeCategorias", servicioCat.buscarCategoriasLibros());
+		request.setAttribute("listaDeAutores", servicioAut.buscarAutoresLibros());
+		request.setAttribute("libro",servicioLib.buscarLibroPorClave(Integer.parseInt(request.getParameter("isbn"))));
 
 		return "FormularioEditarLibro.jsp";
 	}

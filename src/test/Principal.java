@@ -13,6 +13,7 @@ public class Principal
 		mensaje.hola();
 		*/
 	
+		@SuppressWarnings("resource")
 		ApplicationContext factoria =
 				new FileSystemXmlApplicationContext("classpath*:/contextoAplicacion.xml");
 		

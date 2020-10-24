@@ -20,7 +20,6 @@ public class Libro {
 	@JoinColumn(name="idAut_lib")
 	private Autor autor;
 
-	
 	public Categoria getCategoria() {
 		return categoria;
 	}
@@ -44,41 +43,6 @@ public class Libro {
 	public void setTit_lib(String tit_lib) {
 		this.tit_lib = tit_lib;
 	}
-	/*
-	public int getIdCat_lib() {
-		return idCat_lib;
-	}
-
-	public void setIdCat_lib(int idCat_lib) {
-		this.idCat_lib = idCat_lib;
-	}
-
-	public String getAut_lib() {
-		return aut_lib;
-	}
-
-
-	public void setAut_lib(String aut_lib) {
-		this.idaut_lib = aut_lib;
-	}
-/*
-	public Libro(int cve_lib, String tit_lib, int idCat_lib, String aut_lib) {
-		super();
-		this.cve_lib = cve_lib;
-		this.tit_lib = tit_lib;
-		this.idCat_lib = idCat_lib;
-		this.aut_lib = aut_lib;
-	}
-
-	public Libro(int cve_lib, String tit_lib, String aut_lib, Categoria categoria) {
-		super();
-		this.cve_lib = cve_lib;
-		this.tit_lib = tit_lib;
-		this.aut_lib = aut_lib;
-		this.categoria = categoria;
-	}
-	
-*/
 
 	public Autor getAutor() {
 		return autor;

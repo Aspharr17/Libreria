@@ -11,29 +11,32 @@ import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
 import interfaces.GenericDAO;
-import sevlets.aplicacion.JPAHelper;
 
-public abstract class GenericDAOJPAImpl<T, Id extends Serializable> implements GenericDAO<T, Id> {
+
+public abstract class GenericDAOJPAImpl<T, Id extends Serializable>  implements GenericDAO<T, Id> {
 	
 	private Class<T> claseDePersistencia;
+	private EntityManagerFactory entityManagerFactory;
+
 
 	@SuppressWarnings("unchecked")
 	public GenericDAOJPAImpl() {
 		this.claseDePersistencia = (Class<T>) ( (ParameterizedType)  getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 	}
 
-	public EntityManager getManager() {
-		EntityManagerFactory factoriaSession = JPAHelper.getJPAFactory();
-		EntityManager manager = factoriaSession.createEntityManager();
-		
-		return manager;
-	}
 	
+	public EntityManagerFactory getEntityManagerFactory() {
+		return entityManagerFactory;
+	}
+
+	public void setEntityManagerFactory(EntityManagerFactory entityManagerFactory) {
+		this.entityManagerFactory = entityManagerFactory;
+	}
 	@Override
 	public T buscarPorClave(Id id) {
 
-		EntityManager manager = getManager();
-
+		EntityManager manager = getEntityManagerFactory().createEntityManager();
+		
 		T objeto = null;
 		try {
 			objeto = (T) manager.find(claseDePersistencia, id);
@@ -46,11 +49,12 @@ public abstract class GenericDAOJPAImpl<T, Id extends Serializable> implements G
 	@Override
 	public List<T> buscarTodos() {
 
-		EntityManager manager = getManager();
-
+		EntityManager manager = getEntityManagerFactory().createEntityManager();
+		
 		List<T> listaDeObjetos = null;
 		try {
-			TypedQuery<T> consulta = manager.createQuery("select o from " + claseDePersistencia.getSimpleName()+ " o", claseDePersistencia);
+			TypedQuery<T> consulta = manager.createQuery("select o from " 
+			+ claseDePersistencia.getSimpleName()+ " o ", claseDePersistencia);
 
 			listaDeObjetos = consulta.getResultList();
 			return listaDeObjetos;
@@ -58,11 +62,11 @@ public abstract class GenericDAOJPAImpl<T, Id extends Serializable> implements G
 			manager.close();
 		}
 	}
-
+	@Override
 	public void insertar(T objeto) {
 
-		EntityManager manager = getManager();
-
+		EntityManager manager = getEntityManagerFactory().createEntityManager();
+		
 		EntityTransaction tx = null;
 		try {
 			tx = manager.getTransaction();
@@ -76,11 +80,10 @@ public abstract class GenericDAOJPAImpl<T, Id extends Serializable> implements G
 			manager.close();
 		}
 	}
-	
+	@Override
 	public void guardar(T objeto) {
 
-		EntityManager manager = getManager();
-
+		EntityManager manager = getEntityManagerFactory().createEntityManager();
 		EntityTransaction tx = null;
 		try {
 			tx = manager.getTransaction();
@@ -94,10 +97,10 @@ public abstract class GenericDAOJPAImpl<T, Id extends Serializable> implements G
 			manager.close();
 		}
 	}
-
+	@Override
 	public void borrar(T objeto) {
 
-		EntityManager manager = getManager();
+		EntityManager manager = getEntityManagerFactory().createEntityManager();
 
 		EntityTransaction tx = null;
 		try {
@@ -112,4 +115,39 @@ public abstract class GenericDAOJPAImpl<T, Id extends Serializable> implements G
 			manager.close();
 		}
 	}
+	
+	/*
+	@SuppressWarnings("unchecked")
+	public GenericDAOJPAImpl() 
+	{
+		this.claseDePersistencia = (Class<T>) ((ParameterizedType)getClass()
+		.getGenericSuperclass()).getActualTypeArguments()[0];
+	}
+	
+	@Override
+	public T buscarPorClave(Id id) 
+	{
+		return getJpaTemplate().find(claseDePersistencia, id);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<T> buscarTodos() 
+	{
+		return getJpaTemplate().find("select o from "
+		+ claseDePersistencia.getSimpleName() + " o");
+	}
+	public void borrar(T objeto) 
+	{
+		getJpaTemplate().remove(getJpaTemplate().merge(objeto));
+	}
+	public void guardar(T objeto) 
+	{
+		getJpaTemplate().merge(objeto);
+	}
+	public void insertar(T objeto) 
+	{
+		getJpaTemplate().persist(objeto);
+	}*/
+	
+	
 }

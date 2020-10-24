@@ -4,7 +4,44 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-	<bean id="MensajeHTML" class="test.MensajeHTML"></bean>
-	<bean id="MensajePlano" class="test.MensajePlano"></bean>
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceUnitName" value="arquitecturaJava" />
+		<property name="dataSource" ref="fuenteDeDatos" />
+		<property name="jpaVendorAdapter">
+		
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="databasePlatform" value="org.hibernate.dialect.MySQL5Dialect" />
+				<property name="showSql" value="true" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="fuenteDeDAtos" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+		<property name="url" value="jdbc:mysql://localhost/libreria"></property>
+		<property name="username" value="Aspharr17"></property>
+		<property name="password" value="Ghostrecon17"></property>
+	</bean>
+	
+	
+	<bean id="LibroDAO"    class = "dao.JPA.LibroDAOJPAImpl">
+		<property name = "entityManagerFactory" ref = "entityManagerFactory"/>
+	</bean>	
+	<bean id="CategoriaDAO" class = "dao.JPA.CategoriaDAOJPAImpl">
+		<property name = "entityManagerFactory" ref = "entityManagerFactory"/>
+	</bean>
+	<bean id="AutorDAO" class = "dao.JPA.AutorDAOJPAImpl">
+		<property name = "entityManagerFactory" ref = "entityManagerFactory"/>
+	</bean>
+	
+	<bean id ="servicioLibros" class = "dao.servicios.ServicioLibrosImpl">
+		<property name = "libroDAO" ref = "LibroDAO"></property>
+	</bean>
+	<bean id ="servicioCategorias" class = "dao.servicios.ServicioCategoriasImpl">
+		<property name="categoriaDAO" ref="CategoriaDAO"></property>
+	</bean>
+	
+	<bean id="servicioAutores" class = "dao.servicios.ServicioAutoresImpl">
+		<property name = "autorDAO" ref ="AutorDAO"></property>
+	</bean>
 	
 </beans>

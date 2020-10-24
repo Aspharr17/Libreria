@@ -1,10 +1,4 @@
 
-fieldset {
-	font-family: sans-serif;
-	overflow: auto;
-	width :200px;
-	border: 1px solid #ddd;
-}
 
 #btnInsert
 {
@@ -37,13 +31,5 @@ td, th{
 }
 
 
-#legend_fs
-{
-	text-align: center;
-}
-#isbn,#titulo,#categoria,#autor
-{
-	width: 100%;
-  	border-color: DodgerBlue;
-  	
-}
+
+

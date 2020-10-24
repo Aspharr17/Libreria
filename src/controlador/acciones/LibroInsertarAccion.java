@@ -6,10 +6,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import abstractas.Accion;
-import dao.JPA.ServicioLibrosImpl;
 import entidades.Autor;
 import entidades.Categoria;
 import entidades.Libro;
+import interfaces.ServicioLibros;
 import sevlets.excepciones.DBException;
 /**
  * Servlet implementation class LibroInsertar
@@ -29,8 +29,9 @@ public class LibroInsertarAccion extends Accion{
 		{
 			out = response.getWriter();
 			 
-			
-			new ServicioLibrosImpl().insertarLibro(new Libro(Integer.parseInt(request.getParameter("isbn")),
+			ServicioLibros servicioLib = (ServicioLibros)getBean("servicioLibros", request);
+
+			servicioLib.insertarLibro(new Libro(Integer.parseInt(request.getParameter("isbn")),
 					request.getParameter("titulo"),
 					new Autor(Integer.parseInt(request.getParameter("autor"))),
 					new Categoria(Integer.parseInt(request.getParameter("categoria"))))
@@ -45,7 +46,7 @@ public class LibroInsertarAccion extends Accion{
 						+ "<h1> Se registró el libro "+request.getParameter("titulo")+" correctamente</h1>"
 						+ "<a href=\"FormularioInsertarLibro.jsp\">Insertar Libro</a>"
 						+ "<br/>"
-						+ "<a href= MostrarLibro.do>MostrarLibro </a>"
+						+ "<a href= MostrarLibros.do>MostrarLibro </a>"
 						+ "</body>"
 						+ "</html>";
 			out.println(page);

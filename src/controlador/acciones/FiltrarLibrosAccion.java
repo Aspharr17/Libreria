@@ -1,31 +1,30 @@
 package controlador.acciones;
 
+import java.util.Set;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import abstractas.Accion;
-import dao.JPA.ServicioAutoresImpl;
-import dao.JPA.ServicioCategoriasImpl;
-import dao.JPA.ServicioLibrosImpl;
+import interfaces.ServicioAutores;
+import interfaces.ServicioCategorias;
+import interfaces.ServicioLibros;
 
 public class FiltrarLibrosAccion extends Accion {
 
 	@Override
-	public String ejecutar(HttpServletRequest request, HttpServletResponse response) {
+	public String ejecutar(HttpServletRequest request, HttpServletResponse response) 
+	{
 		
-		//ServicioLibros servicioLibros = new ServicioLibrosImpl();
-		//ServicioCategorias servicioCategorias = new ServicioCategoriasImpl();
-		//ServicioAutores servicioAutores = new ServicioAutoresImpl();
+		Set<String> setDeFiltros = request.getParameterMap().keySet();
 		
-		/*List<Libro> listaDeLibros = servicioLibros.buscarLibrosPorCategoria(
-										servicioCategorias.buscarCategoriaPorClave(
-												Integer.parseInt(request.getParameter("sel_categoria"))));
-		*/
-		request.setAttribute("listaDeCategorias", new ServicioCategoriasImpl().buscarCategoriasLibros());
-		request.setAttribute("listaDeAutores", new ServicioAutoresImpl().buscarAutoresLibros());
-		request.setAttribute("listaDeLibros", new ServicioLibrosImpl().buscarLibrosPorCategoria(
-													new ServicioCategoriasImpl().buscarCategoriaPorClave(
-														Integer.parseInt(request.getParameter("sel_categoria")))));
+		ServicioLibros servicioLib = (ServicioLibros)getBean("servicioLibros", request);
+		ServicioCategorias servicioCat = (ServicioCategorias)getBean("servicioCategorias",request);
+		ServicioAutores servicioAut = (ServicioAutores)getBean("servicioAutores",request);
+		
+		request.setAttribute("listaDeCategorias", servicioCat.buscarCategoriasLibros());
+		request.setAttribute("listaDeAutores", servicioAut.buscarAutoresLibros());
+		request.setAttribute("listaDeLibros", servicioLib.filtrarLibros(setDeFiltros,request));
 		return "MostrarLibros.jsp";
 	}
 
