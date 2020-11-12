@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
+import entidades.Categoria;
 import entidades.Libro;
 
 public interface ServicioLibros {
@@ -18,5 +19,6 @@ public interface ServicioLibros {
 	
 	public LibroDAO getLibroDAO();
 	public void setLibroDAO(LibroDAO libro);
+	List<Libro> buscarLibrosPorCategoria(Categoria categoria);
 	
 }

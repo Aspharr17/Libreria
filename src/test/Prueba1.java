@@ -10,7 +10,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.query.Query;
+//import org.hibernate.query.Query;
 
 import entidades.Autor;
 import entidades.Categoria;
@@ -65,7 +65,7 @@ public class Prueba1
 		{
 			SessionFactory factoria = new Configuration().configure().buildSessionFactory();
 			session = factoria.openSession();
-			Query consulta = session.createQuery("from Libro libro");
+			org.hibernate.Query consulta = session.createQuery("from Libro libro");
 			List<Libro> lista = consulta.list();
 			for(Libro l :lista) {
 				System.out.println(l.getTit_lib());
@@ -89,7 +89,7 @@ public class Prueba1
 		{
 			SessionFactory factoria = new Configuration().configure().buildSessionFactory();
 			session = factoria.openSession();
-			Libro libro = session.get(Libro.class, isbn);
+			Libro libro = (Libro) session.get(Libro.class, isbn);
 			//System.out.println(libro.getIsbn());
 			//System.out.println(libro.getTitulo());
 			//System.out.println(libro.getCategoria());
@@ -112,7 +112,7 @@ public class Prueba1
 			SessionFactory factoria = new Configuration().configure().buildSessionFactory();
 			session = factoria.openSession();
 			transaccion = session.beginTransaction();
-			Libro libro = session.get(Libro.class, isbn);
+			Libro libro = (Libro) session.get(Libro.class, isbn);
 			session.delete(libro);
 			transaccion.commit();
 
@@ -134,7 +134,7 @@ public class Prueba1
 		{
 			SessionFactory factoria = new Configuration().configure().buildSessionFactory();
 			session = factoria.openSession();
-			Query consulta = session.createQuery("select distinct libro.categoria from Libro libro");
+			org.hibernate.Query consulta = session.createQuery("select distinct libro.categoria from Libro libro");
 			List<String> categorias = consulta.list();
 			for(int i = 0; i<categorias.size(); i++)
 			{
@@ -159,7 +159,7 @@ public class Prueba1
 			
 		}finally {
 			session.close();
-			System.out.println("Sesión cerrada");
+			System.out.println("Sesiï¿½n cerrada");
 		}
 	}
 	

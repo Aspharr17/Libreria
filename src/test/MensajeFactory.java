@@ -1,11 +1,11 @@
 package test;
 
-import java.util.Properties;
 
 public class MensajeFactory
 {
 	public static Mensaje getMensaje()
 	{
+		/*
 		Properties propiedades = new Properties();
 		Mensaje mensaje = null;
 		try
@@ -26,6 +26,8 @@ public class MensajeFactory
 		{
 			e.printStackTrace();
 		}
-		return mensaje;
+		
+		return mensaje; */
+		return new MensajeProxy();
 	}
 }

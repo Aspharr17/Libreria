@@ -1,0 +1,12 @@
+/META-INF/
+/abstractas/
+/contextoAplicacion.xml
+/controlador/
+/controladores/
+/dao/
+/entidades/
+/hibernate.cfg.xml
+/interfaces/
+/log4j.properties
+/sevlets/
+/test/

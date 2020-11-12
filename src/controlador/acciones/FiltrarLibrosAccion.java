@@ -1,6 +1,5 @@
 package controlador.acciones;
 
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,15 +15,17 @@ public class FiltrarLibrosAccion extends Accion {
 	public String ejecutar(HttpServletRequest request, HttpServletResponse response) 
 	{
 		
-		Set<String> setDeFiltros = request.getParameterMap().keySet();
+		/*Set<String> setDeFiltros = request.getParameterMap().keySet();
+		request.setAttribute("listaDeLibros", servicioLib.filtrarLibros(setDeFiltros,request));*/
 		
 		ServicioLibros servicioLib = (ServicioLibros)getBean("servicioLibros", request);
 		ServicioCategorias servicioCat = (ServicioCategorias)getBean("servicioCategorias",request);
 		ServicioAutores servicioAut = (ServicioAutores)getBean("servicioAutores",request);
 		
+		int id_cat = Integer.parseInt(request.getParameter("sel_categoria"));
 		request.setAttribute("listaDeCategorias", servicioCat.buscarCategoriasLibros());
 		request.setAttribute("listaDeAutores", servicioAut.buscarAutoresLibros());
-		request.setAttribute("listaDeLibros", servicioLib.filtrarLibros(setDeFiltros,request));
+		request.setAttribute("listaDeLibros", servicioLib.buscarLibrosPorCategoria(servicioCat.buscarCategoriaPorClave(id_cat)));
 		return "MostrarLibros.jsp";
 	}
 

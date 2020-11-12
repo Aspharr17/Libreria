@@ -12,7 +12,6 @@ import javax.persistence.TypedQuery;
 
 import interfaces.GenericDAO;
 
-
 public abstract class GenericDAOJPAImpl<T, Id extends Serializable>  implements GenericDAO<T, Id> {
 	
 	private Class<T> claseDePersistencia;
@@ -115,39 +114,4 @@ public abstract class GenericDAOJPAImpl<T, Id extends Serializable>  implements 
 			manager.close();
 		}
 	}
-	
-	/*
-	@SuppressWarnings("unchecked")
-	public GenericDAOJPAImpl() 
-	{
-		this.claseDePersistencia = (Class<T>) ((ParameterizedType)getClass()
-		.getGenericSuperclass()).getActualTypeArguments()[0];
-	}
-	
-	@Override
-	public T buscarPorClave(Id id) 
-	{
-		return getJpaTemplate().find(claseDePersistencia, id);
-	}
-	
-	@SuppressWarnings("unchecked")
-	public List<T> buscarTodos() 
-	{
-		return getJpaTemplate().find("select o from "
-		+ claseDePersistencia.getSimpleName() + " o");
-	}
-	public void borrar(T objeto) 
-	{
-		getJpaTemplate().remove(getJpaTemplate().merge(objeto));
-	}
-	public void guardar(T objeto) 
-	{
-		getJpaTemplate().merge(objeto);
-	}
-	public void insertar(T objeto) 
-	{
-		getJpaTemplate().persist(objeto);
-	}*/
-	
-	
 }

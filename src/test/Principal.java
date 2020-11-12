@@ -1,8 +1,5 @@
 package test;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
-
 public class Principal 
 {
 
@@ -12,7 +9,7 @@ public class Principal
 		Mensaje mensaje = MensajeFactory.getMensaje();
 		mensaje.hola();
 		*/
-	
+		/*
 		@SuppressWarnings("resource")
 		ApplicationContext factoria =
 				new FileSystemXmlApplicationContext("classpath*:/contextoAplicacion.xml");
@@ -20,9 +17,16 @@ public class Principal
 		Mensaje mimensaje = (Mensaje)factoria.getBean("MensajeHTML");
 		mimensaje.hola();
 		
-		mimensaje = (Mensaje)factoria.getBean("MensajePlano");
-		mimensaje.hola();
+		//mimensaje = (Mensaje)factoria.getBean("MensajePlano");
+		//mimensaje.hola();
+		 
+		 */
+		MensajeFactory mifactoria= new MensajeFactory();
+		Mensaje mensaje= mifactoria.getMensaje();
+		mensaje.hola();
 		
+		((MensajeProxy) mensaje).getMensaje().hola();
 	}
+		
 
 }

@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
+import entidades.Categoria;
 import entidades.Libro;
 import interfaces.LibroDAO;
 import interfaces.ServicioLibros;
@@ -50,15 +51,22 @@ public class ServicioLibrosImpl implements ServicioLibros
 	{
 	return libroDAO.buscarPorClave(isbn);
 	}
+	
 	@Override
 	public List<Libro> filtrarLibros(Set<String> setDeFiltros, HttpServletRequest request) 
 	{
-	return libroDAO.filtrarLibros(setDeFiltros, request);
+	//return libroDAO.filtrarLibros(setDeFiltros, request);
+		return null;
 	}
 	@Override
 	public void insertarLibro(Libro libro) {
 		libroDAO.insertar(libro);
 		
+	}
+	@Override
+	public List<Libro> buscarLibrosPorCategoria(Categoria categoria) 
+	{
+	return libroDAO.buscarPorCategoria(categoria);
 	}
 	
 
